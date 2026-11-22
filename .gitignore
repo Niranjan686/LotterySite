@@ -24,3 +24,5 @@ Thumbs.db
 backend/uploads/
 backend/data/
 tmp/
+dist/
+public/

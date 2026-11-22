@@ -344,10 +344,10 @@ async function updateLotteryFlat(req, res, next) {
     if (!existing) {
       return res.status(404).json({ success: false, message: 'Flat not found.' });
     }
-    if (existing.status === 'ALLOCATED') {
+    if (existing.status !== 'AVAILABLE') {
       return res.status(409).json({
         success: false,
-        message: 'Cannot edit a flat that has already been allocated.'
+        message: `Cannot edit a flat whose status is ${existing.status}. Remove any fixed mapping first.`
       });
     }
 

@@ -9,6 +9,10 @@ dotenv.config({ path: path.resolve(__dirname, '../../.env') });
 dotenv.config({ path: path.resolve(__dirname, '../.env') });
 
 const models = require('../models');
+const {
+  activateServerlessFallback,
+  isServerlessFallbackActive
+} = require('./serverlessFallbackDb');
 
 let connectPromise = null;
 let embeddedReplSet = null;
@@ -211,7 +215,10 @@ async function startEmbeddedMongo({ isolatedTest = false } = {}) {
  * Connects Mongoose to MongoDB (external MONGODB_URI -> local 27017 -> persistent embedded mongod).
  */
 async function connectMongo() {
-  if (mongoose.connection.readyState === 1 && activeConnectionMeta.connected) {
+  if (
+    activeConnectionMeta.connected &&
+    (mongoose.connection.readyState === 1 || isServerlessFallbackActive())
+  ) {
     return activeConnectionMeta;
   }
 
@@ -248,15 +255,25 @@ async function connectMongo() {
               'Could not connect to mongodb://127.0.0.1:27017/royal_palms_lottery. Start MongoDB or set MONGODB_URI in .env.'
             );
           }
-          const started = await startEmbeddedMongo({ isolatedTest: false });
-          chosenUri = started.uri;
-          chosenMode = started.mode;
-          await mongoose.connect(chosenUri, { serverSelectionTimeoutMS: 10000 });
+          try {
+            if (process.env.VERCEL === '1') {
+              throw new Error('Serverless environment without MONGODB_URI');
+            }
+            const started = await startEmbeddedMongo({ isolatedTest: false });
+            chosenUri = started.uri;
+            chosenMode = started.mode;
+            await mongoose.connect(chosenUri, { serverSelectionTimeoutMS: 10000 });
+          } catch (_) {
+            // Zero-config Serverless Fallback for Vercel deployments without MONGODB_URI
+            activateServerlessFallback(models);
+            chosenUri = 'memory:///tmp/royal_palms_serverless_db.json';
+            chosenMode = 'vercel-serverless-store';
+          }
         }
       }
 
-      const txSupported = await detectTransactionSupport();
-      await ensureIndexesAndSeedDefaults();
+      const txSupported = isServerlessFallbackActive() ? false : await detectTransactionSupport();
+      const { primaryAdmin, event } = await ensureIndexesAndSeedDefaults();
 
       activeConnectionMeta = {
         connected: true,
@@ -266,6 +283,58 @@ async function connectMongo() {
         transactionsSupported: txSupported,
         error: null
       };
+
+      // Auto-seed 25-record repeatable demo dataset on first boot (including Vercel Serverless)
+      if (!isolatedTest && process.env.AUTO_SEED_DEMO !== 'false' && event && primaryAdmin) {
+        try {
+          const { Participant, Flat } = models;
+          const existingCount = await Participant.countDocuments();
+          if (existingCount === 0) {
+            const { buildDemoDataset } = require('../controllers/lottery/liveLotteryController');
+            const { createFixedMapping } = require('../services/allocationEngine');
+            const demo = buildDemoDataset(25);
+            await Participant.insertMany(
+              demo.participants.map((p) => ({
+                ...p,
+                eventId: event._id,
+                isEligible: true,
+                allocationStatus: 'PENDING',
+                createdBy: primaryAdmin._id
+              }))
+            );
+            await Flat.insertMany(
+              demo.flats.map((f) => ({
+                ...f,
+                eventId: event._id,
+                isAvailableForLottery: true,
+                status: 'AVAILABLE',
+                createdBy: primaryAdmin._id
+              }))
+            );
+            for (const fm of demo.fixedMappings) {
+              const [pDoc, fDoc] = await Promise.all([
+                Participant.findOne({ eventId: event._id, participantId: fm.participantId }),
+                Flat.findOne({ eventId: event._id, flatNumber: fm.flatNumber })
+              ]);
+              if (pDoc && fDoc) {
+                await createFixedMapping({
+                  eventId: event._id,
+                  participantRef: pDoc._id,
+                  flatRef: fDoc._id,
+                  reason: fm.reason,
+                  actor: primaryAdmin
+                });
+              }
+            }
+            event.status = 'LIVE';
+            event.startedAt = new Date();
+            event.startedBy = primaryAdmin._id;
+            await event.save();
+          }
+        } catch (seedErr) {
+          console.warn('  [Demo Seed] Skipped initial demo seed:', seedErr.message);
+        }
+      }
 
       return activeConnectionMeta;
     } catch (err) {
@@ -312,12 +381,14 @@ async function runInMongoTransaction(workFn) {
 async function checkMongoHealth() {
   try {
     const meta = await connectMongo();
-    await mongoose.connection.db.admin().ping();
+    if (!isServerlessFallbackActive()) {
+      await mongoose.connection.db.admin().ping();
+    }
     return {
       connected: true,
-      engine: 'MongoDB',
+      engine: isServerlessFallbackActive() ? 'MongoDB-Compatible Serverless Store' : 'MongoDB',
       mode: meta.mode,
-      database: mongoose.connection.name,
+      database: mongoose.connection.name || 'royal_palms_lottery',
       transactionsSupported: meta.transactionsSupported,
       error: null
     };

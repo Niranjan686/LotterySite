@@ -1,0 +1,8 @@
+backend/data
+backend/node_modules
+backend/test-lottery.js
+backend/test-api.js
+dist
+.git
+.env
+*.log

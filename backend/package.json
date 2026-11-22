@@ -6,8 +6,13 @@
   "scripts": {
     "start": "node server.js",
     "dev": "node --watch server.js",
+    "demo": "node seed-demo.js",
+    "build": "node ../scripts/build.js",
     "test": "node test-lottery.js",
     "test:legacy": "node test-api.js"
+  },
+  "engines": {
+    "node": ">=18.0.0"
   },
   "keywords": [
     "society",

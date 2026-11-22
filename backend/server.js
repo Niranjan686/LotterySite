@@ -20,6 +20,9 @@ const { notFoundHandler, errorHandler } = require('./middleware/errorMiddleware'
 
 const app = express();
 
+// Trust reverse proxy headers (Render, Railway, Nginx, Cloudflare, AWS ALB)
+app.set('trust proxy', 1);
+
 // 1. Secure HTTP Headers via Helmet (configured for approved frontend CDNs)
 app.use(
   helmet({
@@ -48,7 +51,7 @@ app.use(
         ],
         imgSrc: ["'self'", 'data:', 'blob:', 'https:'],
         mediaSrc: ["'self'", 'data:', 'blob:'],
-        connectSrc: ["'self'", 'http://localhost:*', 'http://127.0.0.1:*']
+        connectSrc: ["'self'", 'https:', 'http://localhost:*', 'http://127.0.0.1:*']
       }
     },
     crossOriginEmbedderPolicy: false
@@ -115,7 +118,12 @@ app.use('/api/winners', winnerRoutes);
 
 // 7. Serve Frontend Static Assets & Clean Routes
 const frontendDir = path.resolve(__dirname, '../frontend');
-app.use(express.static(frontendDir));
+app.use(
+  express.static(frontendDir, {
+    maxAge: process.env.NODE_ENV === 'production' ? '1h' : 0,
+    etag: true
+  })
+);
 
 app.get('/', (_req, res) => {
   res.sendFile(path.join(frontendDir, 'index.html'));
@@ -134,9 +142,10 @@ app.use(notFoundHandler);
 app.use(errorHandler);
 
 const PORT = parseInt(process.env.PORT, 10) || 5000;
+const HOST = process.env.HOST || '0.0.0.0';
 
 if (require.main === module) {
-  const server = app.listen(PORT, async () => {
+  const server = app.listen(PORT, HOST, async () => {
     console.log('==================================================================');
     console.log('  ROYAL PALMS — FLAT ALLOCATION & LIVE LUCKY DRAW LOTTERY PORTAL');
     console.log(`  Portal Home:  http://localhost:${PORT}`);
@@ -149,58 +158,6 @@ if (require.main === module) {
       console.log(
         `  [MongoDB] Connected (${meta.mode}) -> db "${meta.dbName}" | ACID Transactions: ${meta.transactionsSupported ? 'ENABLED' : 'ATOMIC-CAS'}`
       );
-
-      // Auto-seed initial 25-record repeatable demo dataset if database is empty
-      const { Participant, Flat, LotteryEvent, AdminUser } = require('./models');
-      const { buildDemoDataset } = require('./controllers/lottery/liveLotteryController');
-      const { createFixedMapping } = require('./services/allocationEngine');
-
-      const existingCount = await Participant.countDocuments();
-      if (existingCount === 0) {
-        const event = await LotteryEvent.findOne().sort({ createdAt: 1 });
-        const admin = await AdminUser.findOne({ role: 'SUPER_ADMIN' }).sort({ createdAt: 1 });
-        if (event && admin) {
-          const demo = buildDemoDataset(25);
-          await Participant.insertMany(
-            demo.participants.map((p) => ({
-              ...p,
-              eventId: event._id,
-              isEligible: true,
-              allocationStatus: 'PENDING',
-              createdBy: admin._id
-            }))
-          );
-          await Flat.insertMany(
-            demo.flats.map((f) => ({
-              ...f,
-              eventId: event._id,
-              isAvailableForLottery: true,
-              status: 'AVAILABLE',
-              createdBy: admin._id
-            }))
-          );
-          for (const fm of demo.fixedMappings) {
-            const [pDoc, fDoc] = await Promise.all([
-              Participant.findOne({ eventId: event._id, participantId: fm.participantId }),
-              Flat.findOne({ eventId: event._id, flatNumber: fm.flatNumber })
-            ]);
-            if (pDoc && fDoc) {
-              await createFixedMapping({
-                eventId: event._id,
-                participantRef: pDoc._id,
-                flatRef: fDoc._id,
-                reason: fm.reason,
-                actor: admin
-              });
-            }
-          }
-          event.status = 'LIVE';
-          event.startedAt = new Date();
-          event.startedBy = admin._id;
-          await event.save();
-          console.log('  [Demo Seed] Auto-loaded 25 Demo Participants, 25 Flats & 3 Fixed Mappings (Ready for Live Draw).');
-        }
-      }
     } catch (err) {
       console.error(`  [MongoDB] Startup warning: ${err.message}`);
     }

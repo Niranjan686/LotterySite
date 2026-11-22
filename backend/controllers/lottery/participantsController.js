@@ -397,10 +397,10 @@ async function updateParticipant(req, res, next) {
     if (!existing) {
       return res.status(404).json({ success: false, message: 'Participant not found.' });
     }
-    if (existing.allocationStatus === 'ALLOCATED') {
+    if (existing.allocationStatus !== 'PENDING') {
       return res.status(409).json({
         success: false,
-        message: 'Cannot edit a participant who has already been allocated a flat.'
+        message: `Cannot edit a participant whose status is ${existing.allocationStatus}. Remove any fixed mapping first.`
       });
     }
 

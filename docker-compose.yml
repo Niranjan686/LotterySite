@@ -1,0 +1,31 @@
+version: '3.9'
+
+services:
+  mongodb:
+    image: mongo:7
+    container_name: royal_palms_mongodb
+    restart: unless-stopped
+    volumes:
+      - mongo_data:/data/db
+    ports:
+      - "27017:27017"
+
+  portal:
+    build: .
+    container_name: royal_palms_lottery_portal
+    restart: unless-stopped
+    ports:
+      - "5000:5000"
+    environment:
+      NODE_ENV: production
+      PORT: 5000
+      HOST: 0.0.0.0
+      MONGODB_URI: mongodb://mongodb:27017/royal_palms_lottery
+      AUTO_SEED_DEMO: "true"
+      JWT_SECRET: change-this-strong-royal-palms-jwt-secret
+      LOTTERY_HMAC_SECRET: change-this-strong-ticket-hmac-secret
+    depends_on:
+      - mongodb
+
+volumes:
+  mongo_data:

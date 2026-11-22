@@ -916,6 +916,20 @@ async function runCompleteBatchAllocation({ eventId, actor, req, idempotencyKey 
   return withEventLock(eventId, () =>
     runInMongoTransaction(async (session) => {
       const qOpt = session ? { session } : {};
+
+      if (cleanKey) {
+        const prior = await Allocation.findOne({ idempotencyKey: cleanKey }, null, qOpt);
+        if (prior) {
+          return {
+            replayedIdempotent: true,
+            allocatedCount: 1,
+            firstAllocationId: prior.allocationId,
+            lastAllocationId: prior.allocationId,
+            latestAllocation: enrichAllocationForClient(prior)
+          };
+        }
+      }
+
       const event = await LotteryEvent.findById(eventId, null, qOpt);
       if (!event) {
         const err = new Error('Lottery event not found.');

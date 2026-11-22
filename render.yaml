@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: royal-palms-lottery-portal
+    runtime: node
+    plan: starter
+    buildCommand: npm --prefix backend install && npm run build
+    startCommand: node backend/server.js
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: AUTO_SEED_DEMO
+        value: "true"
+      - key: JWT_SECRET
+        generateValue: true
+      - key: LOTTERY_HMAC_SECRET
+        generateValue: true
+      - key: MONGODB_URI
+        sync: false
