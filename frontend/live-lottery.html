@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ROYAL PALMS — Grand Flat Allocation Live Show</title>
+  <link rel="icon" type="image/svg+xml" href="assets/images/logo.svg" />
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/live-show.css" />
+</head>
+<body>
+  <div class="stage-backdrop-beams" aria-hidden="true"></div>
+
+  <div class="live-show-shell">
+    <!-- Top Broadcast Bar -->
+    <header class="show-topbar no-print">
+      <div class="show-brand-group">
+        <img src="assets/images/logo.svg" alt="Royal Palms Crest" class="show-crest-img" id="showLogoImg" />
+        <div>
+          <div class="show-eyebrow-society" id="showSocietyLabel">ROYAL PALMS</div>
+          <h1 class="show-grand-title" id="showEventTitle">GRAND FLAT ALLOCATION</h1>
+        </div>
+      </div>
+
+      <div class="show-hud-counters">
+        <div class="hud-counter-box">
+          <span class="hud-counter-label">Remaining People</span>
+          <span class="hud-counter-val" id="hudRemParticipants">0</span>
+        </div>
+        <div class="hud-counter-box">
+          <span class="hud-counter-label">Remaining Flats</span>
+          <span class="hud-counter-val" id="hudRemFlats">0</span>
+        </div>
+        <div class="hud-counter-box">
+          <span class="hud-counter-label">Total Allocated</span>
+          <span class="hud-counter-val" id="hudTotalAllocated">0</span>
+        </div>
+        <span class="show-status-badge" id="showStatusBadge">READY</span>
+      </div>
+    </header>
+
+    <!-- Main Center Presentation Stage -->
+    <main class="show-center-stage">
+      <div class="stage-pedestal-card" id="stagePedestal">
+        <div id="pausedStageBadge" class="paused-pill-notice d-none">
+          <i class="fa-solid fa-pause me-1"></i>PRESENTATION PAUSED
+        </div>
+
+        <!-- Dynamic Stage Content Mounted by live-show.js -->
+        <div id="stageDynamicViewport" class="w-100">
+          <img src="assets/images/logo.svg" alt="Royal Palms" class="stage-welcome-crest" />
+          <div class="stage-hero-royal">ROYAL PALMS</div>
+          <h2 class="stage-hero-grand">GRAND FLAT ALLOCATION</h2>
+          <p class="stage-hero-sub">
+            Transparent MongoDB-verified live flat allocation ceremony. Click <strong>START DRAW</strong> below to begin the live countdown and reveal.
+          </p>
+        </div>
+      </div>
+    </main>
+
+    <!-- Bottom Live Event Controls -->
+    <footer class="show-control-dock no-print">
+      <!-- Primary Draw & Playback Controls -->
+      <div class="d-flex align-items-center flex-wrap gap-2">
+        <button type="button" id="btnStartOrNextDraw" class="btn btn-show-primary">
+          <i class="fa-solid fa-play me-2"></i><span id="btnStartDrawLabel">START DRAW</span>
+        </button>
+
+        <button type="button" id="btnPauseResume" class="btn btn-show-ctrl">
+          <i class="fa-solid fa-pause me-1"></i><span>Pause Presentation</span>
+        </button>
+
+        <button type="button" id="btnReplayAnimation" class="btn btn-show-ctrl" disabled title="Replay celebration without creating another allocation">
+          <i class="fa-solid fa-rotate-right me-1"></i><span>Replay Animation</span>
+        </button>
+
+        <button type="button" id="btnPrevAllocation" class="btn btn-show-ctrl" disabled>
+          <i class="fa-solid fa-chevron-left me-1"></i><span>Previous Allocation</span>
+        </button>
+
+        <button type="button" id="btnNextHistoryAllocation" class="btn btn-show-ctrl d-none">
+          <span>Latest</span><i class="fa-solid fa-chevron-right ms-1"></i>
+        </button>
+      </div>
+
+      <!-- Audio, Full-Screen, Admin & End Lottery Controls -->
+      <div class="d-flex align-items-center flex-wrap gap-2">
+        <button type="button" id="btnToggleSound" class="btn btn-show-ctrl">
+          <i class="fa-solid fa-volume-high me-1"></i><span>Sound ON</span>
+        </button>
+
+        <div class="audio-sliders-popover" title="Separate Music & Sound Effect Volumes">
+          <span>Music</span>
+          <input type="range" id="musicVolSlider" min="0" max="1" step="0.05" value="0.5" aria-label="Background music volume" />
+          <span>SFX</span>
+          <input type="range" id="sfxVolSlider" min="0" max="1" step="0.05" value="0.8" aria-label="Sound effects volume" />
+        </div>
+
+        <button type="button" id="btnFullScreen" class="btn btn-show-ctrl">
+          <i class="fa-solid fa-expand me-1"></i><span>Full Screen</span>
+        </button>
+
+        <button type="button" id="btnDemoReset" class="btn btn-show-ctrl" title="Reset random draws or load dummy dataset to repeat demo N times">
+          <i class="fa-solid fa-wand-magic-sparkles text-warning me-1"></i><span>Reset Demo</span>
+        </button>
+
+        <button type="button" id="btnEndLottery" class="btn btn-show-danger">
+          <i class="fa-solid fa-flag-checkered me-1"></i><span>End Lottery</span>
+        </button>
+
+        <a href="admin.html" class="btn btn-show-ctrl" title="Open Admin Management Portal">
+          <i class="fa-solid fa-gauge-high me-1"></i><span>Admin Portal</span>
+        </a>
+      </div>
+    </footer>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+  <script src="js/show-audio.js"></script>
+  <script src="js/lottery-core.js"></script>
+  <script src="js/live-show.js"></script>
+</body>
+</html>

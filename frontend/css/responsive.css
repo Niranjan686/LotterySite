@@ -1,0 +1,174 @@
+/* =========================================================================
+   ROYAL PALMS SOCIETY LUCKY DRAW - RESPONSIVE STYLES (MOBILE, TABLET & DESKTOP)
+   ========================================================================= */
+
+/* Large Desktop & TV Displays (1600px+) */
+@media (min-width: 1600px) {
+  .container-xxl {
+    max-width: 1380px;
+  }
+
+  .landing-hero-card {
+    padding: 3.35rem 3.5rem;
+  }
+
+  .slot-cabinet-stage {
+    max-width: 960px;
+  }
+
+  .reel-drum,
+  .reel-cell {
+    height: 280px;
+  }
+
+  .symbol-emblem {
+    width: 126px;
+    height: 126px;
+    font-size: 4rem;
+  }
+}
+
+/* Tablet & Mobile Collapse (< 991px) */
+@media (max-width: 991.98px) {
+  .arcade-navbar .navbar-collapse {
+    background: var(--bg-ivory);
+    border: 1px solid var(--border-beige);
+    border-radius: 16px;
+    padding: 0.95rem;
+    margin-top: 0.65rem;
+    box-shadow: 0 14px 34px rgba(20, 33, 61, 0.09);
+  }
+
+  .arcade-nav-links {
+    align-items: stretch;
+  }
+
+  .arcade-nav-links .nav-link {
+    width: 100%;
+    margin: 0.14rem 0;
+    justify-content: center;
+  }
+
+  .landing-main {
+    padding: 1.5rem 0 2.1rem;
+  }
+
+  .landing-hero-card {
+    padding: 2rem;
+  }
+
+  .society-command-banner {
+    padding: 1.35rem;
+  }
+}
+
+/* Mobile Screens (< 767px) */
+@media (max-width: 767.98px) {
+  .landing-hero-card {
+    padding: 1.4rem;
+    border-radius: 22px;
+  }
+
+  .landing-main-heading {
+    font-size: 1.88rem;
+  }
+
+  .landing-subtitle {
+    font-size: 0.98rem;
+    margin-bottom: 1.45rem;
+  }
+
+  .btn-play-win-primary {
+    width: 100%;
+    padding: 1.02rem 1.5rem;
+    font-size: 1.05rem;
+  }
+
+  .hero-reel-preview {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
+    padding: 0.85rem;
+  }
+
+  .preview-label-col {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .preview-eyebrow {
+    width: 100%;
+  }
+
+  .mini-reels-bezel {
+    grid-template-columns: repeat(3, 1fr);
+    width: 100%;
+  }
+
+  .slot-cabinet {
+    padding: 1.35rem 1.05rem 1.55rem;
+    border-radius: 22px;
+  }
+
+  .game-stage-title {
+    font-size: 1.35rem;
+  }
+
+  .reel-bezel-frame {
+    padding: 0.8rem;
+    border-radius: 18px;
+  }
+
+  .reels-grid {
+    gap: 0.6rem;
+  }
+
+  .reel-drum,
+  .reel-cell {
+    height: 182px;
+  }
+
+  .symbol-emblem {
+    width: 78px;
+    height: 78px;
+    font-size: 2.45rem;
+    border-radius: 18px;
+  }
+
+  .symbol-caption {
+    font-size: 0.74rem;
+  }
+
+  .btn-spin-now {
+    width: 100%;
+    min-width: 0;
+    font-size: 1.1rem;
+    padding: 0.96rem 1.5rem;
+  }
+
+  .kpi-value {
+    font-size: 1.65rem;
+  }
+
+  .winner-field-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.2rem;
+  }
+}
+
+/* Small Mobile (< 400px) */
+@media (max-width: 399.98px) {
+  .reel-drum,
+  .reel-cell {
+    height: 154px;
+  }
+
+  .symbol-emblem {
+    width: 64px;
+    height: 64px;
+    font-size: 2rem;
+  }
+}

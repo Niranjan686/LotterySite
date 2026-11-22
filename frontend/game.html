@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Play Game — Royal Palms Lucky Draw</title>
+  <link rel="icon" type="image/svg+xml" href="assets/images/logo.svg" />
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/game.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
+</head>
+<body>
+  <div class="app-wrapper">
+    <!-- Refined Luxury Navigation -->
+    <nav class="navbar navbar-expand-lg arcade-navbar">
+      <div class="container-xxl">
+        <a class="brand-lockup" href="index.html">
+          <img src="assets/images/logo.svg" alt="Royal Palms" class="brand-logo-img js-society-logo" />
+          <div>
+            <div class="brand-title">Royal Palms</div>
+            <span class="brand-tagline js-society-name">Royal Palms Co-operative Housing Society</span>
+          </div>
+        </a>
+
+        <button class="navbar-toggler border-secondary-subtle text-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-label="Toggle navigation">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+
+        <div class="collapse navbar-collapse" id="mainNav">
+          <ul class="navbar-nav ms-auto arcade-nav-links">
+            <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+            <li class="nav-item">
+              <a class="nav-link nav-game-cta active" href="game.html">
+                <i class="fa-solid fa-play fa-xs"></i>
+                <span>Play Game</span>
+              </a>
+            </li>
+            <li class="nav-item"><a class="nav-link" href="winners.html">Winners</a></li>
+            <li class="nav-item"><a class="nav-link" href="dashboard.html">Dashboard</a></li>
+          </ul>
+          <div id="adminNavSlot" class="d-none ms-lg-3 mt-2 mt-lg-0"></div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main Luxury 3-Reel Lucky Draw Stage -->
+    <main class="game-arena-section">
+      <div class="container-xxl">
+        <div id="dbAlertContainer"></div>
+
+        <div class="slot-cabinet-stage">
+          <div class="slot-cabinet" id="slotCabinet">
+            <!-- Top Header & Simple Clear Instruction -->
+            <div class="game-stage-header">
+              <div>
+                <div class="game-society-label js-society-name" id="cabinetSocietyName">
+                  Royal Palms Co-operative Housing Society
+                </div>
+                <h1 class="game-stage-title">Royal Palms Lucky Draw</h1>
+                <p class="game-instruction-text">
+                  Match 3 symbols to win a lucky flat.
+                </p>
+              </div>
+
+              <!-- Easy-to-Use Controls -->
+              <div class="d-flex align-items-center gap-2 flex-wrap">
+                <select id="gameSocietyFilter" class="form-select arcade-select form-select-sm" style="max-width: 215px;" aria-label="Select Society">
+                  <option value="">All Societies</option>
+                </select>
+
+                <button type="button" id="toggleMuteBtn" class="btn btn-sm btn-glass">
+                  <i class="fa-solid fa-volume-high me-1"></i><span>Sound On</span>
+                </button>
+
+                <button type="button" id="toggleFullscreenBtn" class="btn btn-sm btn-glass">
+                  <i class="fa-solid fa-expand me-1"></i><span>Full Screen</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Subtle Info Pills -->
+            <div class="game-meta-strip">
+              <div class="game-stat-pills">
+                <span class="game-stat-pill">
+                  Eligible Flats: <strong id="hudEligibleFlats">0</strong>
+                </span>
+                <span class="game-stat-pill">
+                  Spins: <strong id="hudTotalSpins">0</strong>
+                </span>
+                <span class="game-stat-pill pill-gold">
+                  Winners: <strong id="hudTotalWinners">0</strong>
+                </span>
+              </div>
+
+              <span class="small text-muted-light" id="hudDrawModeLabel">
+                Rule: <strong id="hudDrawMode">No-Repeat Winner</strong>
+              </span>
+            </div>
+
+            <!-- Three Large Spinning Reels (Main Visual Focus) -->
+            <div class="reel-bezel-frame">
+              <div class="matchline-indicator" aria-hidden="true"></div>
+
+              <div class="reels-grid">
+                <div class="reel-drum" id="reelDrum1">
+                  <div class="reel-strip" id="reelStrip1"></div>
+                </div>
+                <div class="reel-drum" id="reelDrum2">
+                  <div class="reel-strip" id="reelStrip2"></div>
+                </div>
+                <div class="reel-drum" id="reelDrum3">
+                  <div class="reel-strip" id="reelStrip3"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Clear Game Status & Result Display -->
+            <div class="slot-status-banner" id="slotStatusBanner">
+              <span>Ready to play — click <strong>SPIN</strong> to spin the three reels and discover your result.</span>
+            </div>
+
+            <!-- Prominent Champagne-Gold SPIN Button -->
+            <div class="cabinet-control-deck">
+              <button type="button" id="spinNowBtn" class="btn-spin-now">
+                <i class="fa-solid fa-play fa-sm" aria-hidden="true"></i>
+                <span>SPIN</span>
+              </button>
+              <a href="winners.html" class="nav-secondary-link small">
+                View Official Winners
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Official Winner Result Modal -->
+    <div class="modal fade winner-jackpot-modal" id="jackpotWinnerModal" data-bs-backdrop="static" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content p-2 p-md-3">
+          <div class="modal-body text-center py-4">
+            <div class="jackpot-crown-burst">
+              <i class="fa-solid fa-trophy"></i>
+            </div>
+
+            <span class="badge-winner-crown mb-2 d-inline-block" id="winModalCertBadge">
+              ⭐ Star • SPW-000001
+            </span>
+
+            <h2 class="h3 font-display fw-bold mb-1" style="color: var(--navy-deep);">
+              Lucky Draw Winner!
+            </h2>
+            <p class="text-muted-light small mb-3" id="winModalPrizeTitle">
+              Official Society Play &amp; Win Winner
+            </p>
+
+            <!-- Winner Details Card -->
+            <div class="winner-spotlight-card text-start mx-auto">
+              <div class="winner-field-row">
+                <span class="text-muted-light small fw-semibold">Owner Name</span>
+                <span class="fs-5 fw-bold text-gold" id="winModalOwnerName">—</span>
+              </div>
+              <div class="winner-field-row">
+                <span class="text-muted-light small fw-semibold">Flat Number</span>
+                <span class="fs-5 fw-bold text-neon-blue" id="winModalFlatNumber">—</span>
+              </div>
+              <div class="winner-field-row">
+                <span class="text-muted-light small fw-semibold">Society</span>
+                <span class="fw-semibold" id="winModalSocietyName">—</span>
+              </div>
+              <div class="winner-field-row">
+                <span class="text-muted-light small fw-semibold">Draw Date &amp; Time</span>
+                <span class="small text-secondary" id="winModalDrawDateTime">—</span>
+              </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="d-flex justify-content-center flex-wrap gap-2 mt-4">
+              <button type="button" id="winnerPlayAgainBtn" class="btn btn-gold px-4">
+                Spin Again
+              </button>
+              <button type="button" id="winnerViewDetailsBtn" class="btn btn-sky px-3">
+                View Details
+              </button>
+              <button type="button" id="winnerPrintCertBtn" class="btn btn-glass px-3">
+                <i class="fa-solid fa-print me-1"></i>Print Certificate
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Secondary Modal: Full Winner Verification Details -->
+    <div class="modal fade arcade-modal" id="winnerDetailModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title h6 font-display fw-bold mb-0">Official Draw Details</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body" id="winnerDetailModalBody"></div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-glass" data-bs-dismiss="modal">Close</button>
+            <button type="button" id="detailModalPrintCertBtn" class="btn btn-gold">
+              <i class="fa-solid fa-print me-1"></i>Print Certificate
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="arcade-footer text-center">
+      <div class="container-xxl">
+        <span class="js-society-name">Royal Palms Co-operative Housing Society</span> • Lucky Draw Game
+      </div>
+    </footer>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/game.js"></script>
+</body>
+</html>

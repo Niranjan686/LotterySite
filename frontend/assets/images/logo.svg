@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" width="240" height="240">
+  <defs>
+    <linearGradient id="ivoryBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fffefa"/>
+      <stop offset="100%" stop-color="#f5efe4"/>
+    </linearGradient>
+    <linearGradient id="champagneGold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#dfc07c"/>
+      <stop offset="50%" stop-color="#c49a45"/>
+      <stop offset="100%" stop-color="#9e7626"/>
+    </linearGradient>
+  </defs>
+  <rect x="10" y="10" width="220" height="220" rx="46" fill="url(#ivoryBg)" stroke="#dfd2bc" stroke-width="4"/>
+  <rect x="22" y="22" width="196" height="196" rx="36" fill="none" stroke="url(#champagneGold)" stroke-width="2" opacity="0.7"/>
+  <!-- Royal Crown -->
+  <path d="M74 88 L93 54 L120 76 L147 54 L166 88 Z" fill="url(#champagneGold)"/>
+  <circle cx="93" cy="47" r="5" fill="#c49a45"/>
+  <circle cx="120" cy="41" r="6" fill="#14213d"/>
+  <circle cx="147" cy="47" r="5" fill="#c49a45"/>
+  <!-- 3 Porcelain Reels -->
+  <rect x="42" y="100" width="156" height="72" rx="14" fill="#ffffff" stroke="#d8c9b0" stroke-width="3"/>
+  <line x1="94" y1="102" x2="94" y2="170" stroke="#ebe3d5" stroke-width="2"/>
+  <line x1="146" y1="102" x2="146" y2="170" stroke="#ebe3d5" stroke-width="2"/>
+  <text x="68" y="147" font-family="Georgia, serif" font-size="30" fill="#c49a45" text-anchor="middle">&#9733;</text>
+  <text x="120" y="147" font-family="Georgia, serif" font-size="30" fill="#14213d" text-anchor="middle">&#9733;</text>
+  <text x="172" y="147" font-family="Georgia, serif" font-size="30" fill="#c49a45" text-anchor="middle">&#9733;</text>
+  <!-- Bottom Ribbon -->
+  <rect x="56" y="184" width="128" height="22" rx="11" fill="#14213d"/>
+  <text x="120" y="199" font-family="Arial, sans-serif" font-size="10.5" font-weight="700" fill="#f5e6c4" text-anchor="middle" letter-spacing="1.6">PLAY &amp; WIN</text>
+</svg>

@@ -1,0 +1,332 @@
+/* =========================================================================
+   ROYAL PALMS SOCIETY LUCKY DRAW - LUXURY HERO & 3-REEL PREVIEW (home.css)
+   Palette: Ivory White, Champagne Gold, Warm Beige, Soft Cream, Deep Navy
+   ========================================================================= */
+
+.landing-main {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  padding: 2.25rem 0 2.75rem;
+}
+
+.landing-hero-card {
+  background: linear-gradient(145deg, #fffefa 0%, #faf6ed 100%);
+  border: 1px solid var(--border-beige);
+  border-radius: 28px;
+  padding: 2.75rem 3rem;
+  box-shadow: 0 24px 60px rgba(20, 33, 61, 0.065);
+  position: relative;
+}
+
+/* Subtle Society Eyebrow */
+.landing-society-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.76rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--champagne-deep);
+  margin-bottom: 0.85rem;
+}
+
+.landing-society-eyebrow::before {
+  content: '';
+  display: inline-block;
+  width: 22px;
+  height: 1.5px;
+  background: var(--champagne-gold);
+}
+
+/* Luxury Editorial Heading */
+.landing-main-heading {
+  font-family: var(--font-serif);
+  font-size: clamp(2.15rem, 3.35vw, 3.05rem);
+  font-weight: 700;
+  line-height: 1.14;
+  letter-spacing: -0.02em;
+  color: var(--navy-deep);
+  margin-bottom: 0.95rem;
+}
+
+.landing-subtitle {
+  font-size: 1.08rem;
+  font-weight: 500;
+  line-height: 1.62;
+  color: var(--text-secondary);
+  max-width: 490px;
+  margin-bottom: 1.9rem;
+}
+
+/* Main Attraction: Prominent Champagne-Gold PLAY & WIN Button */
+.hero-cta-group {
+  margin-bottom: 1.85rem;
+}
+
+.btn-play-win-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.9rem;
+  padding: 1.12rem 2.75rem 1.12rem 2.35rem;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #ebd298 0%, #cfa652 52%, #b88c35 100%);
+  color: var(--navy-deep) !important;
+  font-family: var(--font-sans);
+  font-size: 1.14rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: 1px solid #ad812b;
+  box-shadow:
+    0 14px 32px rgba(173, 129, 43, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.55);
+  transition: transform 0.22s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.22s cubic-bezier(0.22, 1, 0.36, 1),
+    background 0.22s ease;
+}
+
+.btn-play-win-primary .play-icon-badge {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--navy-deep);
+  color: #f6e3b4;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.82rem;
+  padding-left: 2px;
+  box-shadow: 0 3px 8px rgba(20, 33, 61, 0.22);
+  transition: transform 0.22s ease, background-color 0.22s ease;
+}
+
+.btn-play-win-primary:hover,
+.btn-play-win-primary:focus {
+  background: linear-gradient(135deg, #f0daaa 0%, #d6af5d 52%, #c0943c 100%);
+  color: var(--navy-deep) !important;
+  transform: translateY(-3px);
+  box-shadow:
+    0 18px 38px rgba(173, 129, 43, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.65);
+}
+
+.btn-play-win-primary:hover .play-icon-badge {
+  transform: scale(1.07);
+}
+
+.btn-play-win-primary:active {
+  transform: translateY(0);
+}
+
+.landing-helper-note {
+  margin-top: 0.72rem;
+  font-size: 0.86rem;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+/* Compact, Elegant "How to Play" (Typographic, Not a Bulky Promo Card) */
+.how-to-play-compact {
+  padding-top: 1.35rem;
+  border-top: 1px solid var(--border-ivory);
+  max-width: 470px;
+}
+
+.how-to-play-heading {
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  color: var(--navy-deep);
+  margin: 0 0 0.65rem;
+}
+
+.how-to-play-steps {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.42rem;
+}
+
+.how-to-play-steps li {
+  display: flex;
+  align-items: baseline;
+  gap: 0.55rem;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.45;
+}
+
+.how-to-play-steps .step-num {
+  font-weight: 800;
+  color: var(--champagne-deep);
+  min-width: 1.1rem;
+}
+
+/* =========================================================================
+   HERO RIGHT VISUAL SHOWCASE:
+   1) Cinematic Society Building Photo (Clean Rectangular, Zero Overlays)
+   2) Compact Three-Reel Lucky Draw Preview Console Paired Below Photo
+   ========================================================================= */
+.hero-visual-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 0.95rem;
+}
+
+.landing-building-wrap {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  background: var(--bg-warm-beige);
+  border: 1px solid rgba(20, 33, 61, 0.08);
+  box-shadow: 0 20px 48px rgba(20, 33, 61, 0.11);
+  aspect-ratio: 16 / 9.6;
+}
+
+.landing-building-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  display: block;
+  filter: contrast(1.02) saturate(1.03);
+  transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.landing-building-wrap:hover .landing-building-photo {
+  transform: scale(1.018);
+}
+
+/* Compact Three-Reel Game Preview Strip */
+.hero-reel-preview {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.8rem 1.15rem;
+  border-radius: 18px;
+  background: var(--bg-soft-cream);
+  border: 1px solid var(--champagne-border);
+  box-shadow: 0 8px 24px rgba(20, 33, 61, 0.045);
+  text-decoration: none;
+  color: var(--navy-deep);
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+.hero-reel-preview:hover {
+  background: #fbf6ea;
+  border-color: var(--champagne-gold);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(168, 126, 43, 0.12);
+  color: var(--navy-deep);
+}
+
+.preview-label-col {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.preview-eyebrow {
+  font-size: 0.68rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  color: var(--champagne-deep);
+}
+
+.preview-title {
+  font-family: var(--font-serif);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--navy-deep);
+  line-height: 1.2;
+}
+
+.preview-cta-hint {
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.32rem;
+  margin-top: 0.1rem;
+}
+
+.hero-reel-preview:hover .preview-cta-hint {
+  color: var(--champagne-deep);
+}
+
+/* Miniature Three-Reel Window */
+.mini-reels-bezel {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, 76px);
+  gap: 0.5rem;
+  padding: 0.45rem;
+  border-radius: 14px;
+  background: var(--bg-warm-beige);
+  border: 1px solid var(--border-beige);
+  box-shadow: inset 0 1px 4px rgba(20, 33, 61, 0.05);
+  flex-shrink: 0;
+}
+
+/* Subtle Champagne Match Line across Mini Reels */
+.mini-reels-bezel::before {
+  content: '';
+  position: absolute;
+  left: 6px;
+  right: 6px;
+  top: 50%;
+  height: 1.5px;
+  transform: translateY(-50%);
+  background: rgba(200, 159, 73, 0.35);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.mini-reel-window {
+  position: relative;
+  z-index: 2;
+  background: var(--bg-ivory-pure);
+  border: 1px solid #e4dac9;
+  border-radius: 10px;
+  padding: 0.42rem 0.3rem 0.36rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow:
+    0 2px 6px rgba(20, 33, 61, 0.04),
+    inset 0 4px 6px rgba(248, 244, 236, 0.75),
+    inset 0 -4px 6px rgba(248, 244, 236, 0.75);
+  transition: transform 0.22s ease, border-color 0.22s ease;
+}
+
+.hero-reel-preview:hover .mini-reel-window {
+  border-color: var(--champagne-border);
+}
+
+.hero-reel-preview:hover .mini-reel-window:nth-child(2) {
+  transform: translateY(-2px);
+}
+
+.mini-reel-icon {
+  font-size: 1.45rem;
+  line-height: 1.1;
+}
+
+.mini-reel-name {
+  font-size: 0.66rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  margin-top: 0.16rem;
+  letter-spacing: 0.02em;
+}

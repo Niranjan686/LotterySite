@@ -1,0 +1,177 @@
+/* =========================================================================
+   ROYAL PALMS SOCIETY LUCKY DRAW - DASHBOARD, FLATS & SETTINGS STYLES
+   Palette: Ivory White, Champagne Gold, Warm Beige, Soft Cream, Deep Navy
+   ========================================================================= */
+
+.society-command-banner {
+  background: linear-gradient(135deg, #fffefa 0%, #faf6ed 55%, #f4ede0 100%);
+  border: 1px solid var(--border-beige);
+  border-radius: 22px;
+  padding: 1.65rem 2rem;
+  box-shadow: var(--shadow-soft);
+}
+
+.society-banner-logo {
+  width: 72px;
+  height: 72px;
+  border-radius: 16px;
+  object-fit: cover;
+  border: 1px solid var(--champagne-border);
+  background: var(--bg-soft-cream);
+}
+
+/* KPI Stat Cards */
+.kpi-card {
+  position: relative;
+  padding: 1.4rem 1.45rem;
+  border-radius: 20px;
+  background: var(--bg-ivory);
+  border: 1px solid var(--border-ivory);
+  box-shadow: var(--shadow-soft);
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+  height: 100%;
+}
+
+.kpi-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-card);
+}
+
+.kpi-icon-box {
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.18rem;
+}
+
+.kpi-icon-blue {
+  background: var(--navy-soft-bg);
+  color: var(--navy-deep);
+  border: 1px solid var(--navy-border);
+}
+
+.kpi-icon-purple {
+  background: var(--bg-soft-cream);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-beige);
+}
+
+.kpi-icon-gold {
+  background: var(--champagne-soft-bg);
+  color: var(--champagne-deep);
+  border: 1px solid var(--champagne-border);
+}
+
+.kpi-icon-emerald {
+  background: var(--emerald-soft-bg);
+  color: var(--emerald-accent);
+  border: 1px solid #c3e2d0;
+}
+
+.kpi-value {
+  font-family: var(--font-serif);
+  font-size: 1.95rem;
+  font-weight: 700;
+  line-height: 1.15;
+  margin-top: 0.75rem;
+  color: var(--navy-deep);
+}
+
+.kpi-title {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+/* Progress Bar */
+.arcade-progress {
+  height: 10px;
+  background: var(--bg-warm-beige);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.arcade-progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #14213d 0%, #9e7624 55%, #d6af5d 100%);
+  border-radius: 999px;
+  transition: width 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Excel Upload Dropzone */
+.excel-dropzone {
+  border: 2px dashed var(--champagne-border);
+  border-radius: 16px;
+  padding: 2rem 1.5rem;
+  text-align: center;
+  background: var(--bg-soft-cream);
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.excel-dropzone:hover,
+.excel-dropzone.dragover {
+  border-color: var(--champagne-gold);
+  background: var(--champagne-soft-bg);
+}
+
+.preview-scroll-box {
+  max-height: 370px;
+  overflow-y: auto;
+  border-radius: 12px;
+  border: 1px solid var(--border-ivory);
+}
+
+.row-invalid td {
+  background: #fcf3f3 !important;
+}
+
+.row-valid td {
+  background: var(--bg-ivory) !important;
+}
+
+/* Settings Logo & Hero Building Photo Previews */
+.logo-upload-preview {
+  width: 88px;
+  height: 88px;
+  border-radius: 16px;
+  object-fit: cover;
+  border: 1px solid var(--champagne-border);
+  background: var(--bg-soft-cream);
+  flex-shrink: 0;
+}
+
+.hero-photo-upload-preview {
+  width: 100%;
+  height: 185px;
+  border-radius: 14px;
+  object-fit: cover;
+  border: 1px solid var(--border-beige);
+  background: var(--bg-soft-cream);
+}
+
+/* Form Switch */
+.arcade-switch .form-check-input {
+  width: 2.85em;
+  height: 1.5em;
+  cursor: pointer;
+}
+
+.arcade-switch .form-check-input:checked {
+  background-color: var(--champagne-deep);
+  border-color: var(--champagne-deep);
+}
+
+/* Subtle Info Notice Banner */
+.db-warning-banner {
+  background: var(--champagne-soft-bg);
+  border: 1px solid var(--champagne-border);
+  border-radius: 14px;
+  padding: 0.95rem 1.2rem;
+  color: var(--navy-deep);
+}

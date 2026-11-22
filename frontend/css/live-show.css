@@ -1,0 +1,526 @@
+/* =========================================================================
+   ROYAL PALMS — GRAND FLAT ALLOCATION LIVE TELEVISION SHOW CSS (live-show.css)
+   Palette: Luxury Navy Blue, Champagne Gold, Elegant Black Accents, Ivory Light
+   Optimized for 1080p / 4K LED Walls, Projectors & Responsive Screens
+   ========================================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+:root {
+  --show-obsidian: #040814;
+  --show-navy-deep: #071026;
+  --show-navy-mid: #0e1d42;
+  --show-navy-card: rgba(11, 23, 52, 0.86);
+  --show-gold-bright: #f6e2ae;
+  --show-gold: #cfa652;
+  --show-gold-deep: #9e7624;
+  --show-ivory: #fffdf8;
+  --show-muted: #9fb0cc;
+  --font-serif: 'Playfair Display', Georgia, serif;
+  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-sans);
+  color: var(--show-ivory);
+  background-color: var(--show-obsidian);
+  background-image:
+    radial-gradient(ellipse 80% 50% at 50% 0%, rgba(207, 166, 82, 0.16) 0%, transparent 62%),
+    radial-gradient(ellipse 70% 60% at 50% 55%, rgba(21, 46, 102, 0.65) 0%, rgba(4, 8, 20, 0.98) 78%),
+    linear-gradient(180deg, #050b1c 0%, #091530 50%, #040712 100%);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Subtle Theatrical Overhead Spotlight Beams */
+.stage-backdrop-beams {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.stage-backdrop-beams::before,
+.stage-backdrop-beams::after {
+  content: '';
+  position: absolute;
+  top: -25%;
+  width: 48vw;
+  height: 130vh;
+  background: linear-gradient(
+    180deg,
+    rgba(246, 226, 174, 0.09) 0%,
+    rgba(207, 166, 82, 0.02) 55%,
+    transparent 100%
+  );
+  filter: blur(28px);
+}
+
+.stage-backdrop-beams::before {
+  left: 6%;
+  transform: rotate(16deg);
+}
+
+.stage-backdrop-beams::after {
+  right: 6%;
+  transform: rotate(-16deg);
+}
+
+.live-show-shell {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1.1rem 1.75rem 1.25rem;
+}
+
+/* =========================================================================
+   TOP BROADCAST HEADER & LIVE COUNTERS
+   ========================================================================= */
+.show-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  padding: 0.75rem 1.35rem;
+  border-radius: 18px;
+  background: rgba(7, 16, 38, 0.78);
+  border: 1px solid rgba(207, 166, 82, 0.32);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 12px 34px rgba(0, 0, 0, 0.38);
+}
+
+.show-brand-group {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+}
+
+.show-crest-img {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  border: 1.5px solid var(--show-gold);
+  background: #fffdf8;
+  padding: 2px;
+}
+
+.show-eyebrow-society {
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.22em;
+  color: var(--show-gold-bright);
+  text-transform: uppercase;
+}
+
+.show-grand-title {
+  font-family: var(--font-serif);
+  font-size: clamp(1.2rem, 2vw, 1.65rem);
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  color: #ffffff;
+  margin: 0;
+  line-height: 1.15;
+}
+
+.show-hud-counters {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  flex-wrap: wrap;
+}
+
+.hud-counter-box {
+  padding: 0.42rem 0.95rem;
+  border-radius: 12px;
+  background: rgba(4, 8, 20, 0.65);
+  border: 1px solid rgba(207, 166, 82, 0.25);
+  text-align: center;
+  min-width: 118px;
+}
+
+.hud-counter-label {
+  display: block;
+  font-size: 0.64rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--show-muted);
+}
+
+.hud-counter-val {
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--show-gold-bright);
+}
+
+.show-status-badge {
+  padding: 0.4rem 0.9rem;
+  border-radius: 999px;
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  background: rgba(207, 166, 82, 0.16);
+  border: 1px solid var(--show-gold);
+  color: var(--show-gold-bright);
+}
+
+.show-status-badge.status-live {
+  background: rgba(16, 185, 129, 0.18);
+  border-color: #34d399;
+  color: #6ee7b7;
+}
+
+.show-status-badge.status-paused {
+  background: rgba(245, 158, 11, 0.2);
+  border-color: #fbbf24;
+  color: #fde68a;
+}
+
+/* =========================================================================
+   CENTER TELEVISION STAGE ARENA
+   ========================================================================= */
+.show-center-stage {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1.35rem 0;
+  position: relative;
+}
+
+/* Main Stage Pedestal Frame */
+.stage-pedestal-card {
+  width: 100%;
+  max-width: 980px;
+  min-height: 440px;
+  border-radius: 28px;
+  padding: 2.25rem 2.5rem;
+  background: linear-gradient(165deg, rgba(12, 25, 58, 0.92) 0%, rgba(5, 11, 26, 0.95) 100%);
+  border: 1.5px solid rgba(207, 166, 82, 0.48);
+  box-shadow:
+    0 30px 90px rgba(0, 0, 0, 0.65),
+    0 0 60px rgba(207, 166, 82, 0.09),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Stage State 0: Idle / Welcome Marquee */
+.stage-welcome-crest {
+  width: 84px;
+  height: 84px;
+  border-radius: 20px;
+  border: 2px solid var(--show-gold);
+  background: #fffdf8;
+  padding: 4px;
+  margin-bottom: 1.15rem;
+  box-shadow: 0 10px 30px rgba(207, 166, 82, 0.25);
+}
+
+.stage-hero-royal {
+  font-size: 0.95rem;
+  font-weight: 800;
+  letter-spacing: 0.34em;
+  color: var(--show-gold-bright);
+  margin-bottom: 0.45rem;
+}
+
+.stage-hero-grand {
+  font-family: var(--font-serif);
+  font-size: clamp(2.1rem, 4.3vw, 3.6rem);
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  color: #ffffff;
+  line-height: 1.12;
+  margin-bottom: 0.85rem;
+  text-shadow: 0 6px 26px rgba(0, 0, 0, 0.5);
+}
+
+.stage-hero-sub {
+  font-size: 1.05rem;
+  color: var(--show-muted);
+  max-width: 580px;
+  margin: 0 auto 1.8rem;
+}
+
+/* Stage State 1: Dramatic 3... 2... 1... Countdown Ring */
+.countdown-ring {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  border: 4px solid var(--show-gold);
+  background: radial-gradient(circle, rgba(207, 166, 82, 0.22) 0%, rgba(4, 8, 20, 0.9) 72%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 60px rgba(207, 166, 82, 0.35);
+  animation: pulseHalo 0.85s ease-out infinite;
+}
+
+.countdown-digit {
+  font-family: var(--font-serif);
+  font-size: 6rem;
+  font-weight: 800;
+  color: var(--show-gold-bright);
+  line-height: 1;
+}
+
+@keyframes pulseHalo {
+  0% {
+    transform: scale(0.92);
+    box-shadow: 0 0 25px rgba(207, 166, 82, 0.5);
+  }
+  70% {
+    transform: scale(1.04);
+    box-shadow: 0 0 70px rgba(207, 166, 82, 0.25);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Stage States 3, 4 & 5: Participant Drum & Flat Vault Reveal */
+.reveal-sequence-grid {
+  width: 100%;
+  max-width: 820px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+}
+
+.reveal-chamber {
+  padding: 1.5rem 2rem;
+  border-radius: 20px;
+  background: rgba(4, 8, 20, 0.78);
+  border: 1.5px solid rgba(207, 166, 82, 0.35);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.reveal-chamber.chamber-active {
+  border-color: var(--show-gold-bright);
+  box-shadow: 0 0 40px rgba(207, 166, 82, 0.24);
+}
+
+.reveal-chamber.chamber-locked {
+  background: linear-gradient(135deg, rgba(207, 166, 82, 0.16) 0%, rgba(11, 23, 52, 0.92) 100%);
+  border-color: var(--show-gold);
+}
+
+.chamber-step-label {
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--show-gold);
+  margin-bottom: 0.5rem;
+}
+
+.chamber-rolling-name {
+  font-family: var(--font-serif);
+  font-size: clamp(1.75rem, 3.4vw, 2.75rem);
+  font-weight: 700;
+  color: #ffffff;
+  min-height: 3.3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.chamber-rolling-sub {
+  font-size: 0.9rem;
+  color: var(--show-muted);
+  margin-top: 0.25rem;
+}
+
+.chamber-flat-number {
+  font-family: var(--font-serif);
+  font-size: clamp(2.4rem, 4.6vw, 3.8rem);
+  font-weight: 800;
+  color: var(--show-gold-bright);
+  letter-spacing: 0.05em;
+  line-height: 1.1;
+}
+
+/* Ticket Reveal Entrance Animation */
+.ticket-reveal-stage {
+  width: 100%;
+  animation: grandTicketEntrance 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes grandTicketEntrance {
+  from {
+    opacity: 0;
+    transform: scale(0.9) translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Paused Banner Overlay */
+.paused-pill-notice {
+  position: absolute;
+  top: 16px;
+  right: 20px;
+  background: rgba(245, 158, 11, 0.22);
+  border: 1px solid #fbbf24;
+  color: #fde68a;
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  padding: 0.35rem 0.9rem;
+  border-radius: 999px;
+}
+
+/* =========================================================================
+   BOTTOM LIVE EVENT OPERATOR CONTROL DECK
+   ========================================================================= */
+.show-control-dock {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.85rem;
+  flex-wrap: wrap;
+  padding: 0.85rem 1.35rem;
+  border-radius: 18px;
+  background: rgba(7, 16, 38, 0.86);
+  border: 1px solid rgba(207, 166, 82, 0.32);
+  backdrop-filter: blur(14px);
+}
+
+.btn-show-primary {
+  background: linear-gradient(135deg, #f3dc9f 0%, #cfa652 52%, #b5882f 100%);
+  color: #060d1f !important;
+  font-weight: 800;
+  font-size: 0.98rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border: 1px solid #fff0c2;
+  border-radius: 12px;
+  padding: 0.72rem 1.65rem;
+  box-shadow: 0 8px 24px rgba(207, 166, 82, 0.32);
+  transition: transform 0.16s ease, box-shadow 0.16s ease, opacity 0.16s ease;
+}
+
+.btn-show-primary:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(207, 166, 82, 0.45);
+}
+
+.btn-show-primary:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.btn-show-ctrl {
+  background: rgba(255, 255, 255, 0.07);
+  color: #e2e8f0 !important;
+  border: 1px solid rgba(207, 166, 82, 0.3);
+  border-radius: 10px;
+  font-size: 0.84rem;
+  font-weight: 600;
+  padding: 0.54rem 0.92rem;
+  transition: background-color 0.16s ease, border-color 0.16s ease;
+}
+
+.btn-show-ctrl:hover:not(:disabled) {
+  background: rgba(207, 166, 82, 0.18);
+  border-color: var(--show-gold);
+  color: #ffffff !important;
+}
+
+.btn-show-ctrl:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.btn-show-danger {
+  background: rgba(220, 38, 38, 0.16);
+  color: #fca5a5 !important;
+  border: 1px solid rgba(248, 113, 113, 0.4);
+  border-radius: 10px;
+  font-size: 0.84rem;
+  font-weight: 600;
+  padding: 0.54rem 0.92rem;
+}
+
+.btn-show-danger:hover:not(:disabled) {
+  background: rgba(220, 38, 38, 0.28);
+  color: #ffffff !important;
+}
+
+.audio-sliders-popover {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.36rem 0.8rem;
+  border-radius: 10px;
+  background: rgba(4, 8, 20, 0.6);
+  border: 1px solid rgba(207, 166, 82, 0.22);
+  font-size: 0.75rem;
+  color: var(--show-muted);
+}
+
+.audio-sliders-popover input[type='range'] {
+  width: 68px;
+  accent-color: #cfa652;
+  cursor: pointer;
+}
+
+/* Dark Luxury Modal for Pre-Start Confirmation & Operator Sign-In */
+.show-dark-modal .modal-content {
+  background: #09142e;
+  color: #fffdf8;
+  border: 1.5px solid var(--show-gold);
+  border-radius: 22px;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7);
+}
+
+.show-dark-modal .modal-header,
+.show-dark-modal .modal-footer {
+  border-color: rgba(207, 166, 82, 0.25);
+}
+
+.show-dark-modal .form-control {
+  background: #050b1a;
+  border: 1px solid rgba(207, 166, 82, 0.35);
+  color: #ffffff;
+}
+
+@media (max-width: 767.98px) {
+  .live-show-shell {
+    padding: 0.75rem;
+  }
+  .stage-pedestal-card {
+    padding: 1.5rem 1.1rem;
+    min-height: 380px;
+  }
+  .hud-counter-box {
+    min-width: 92px;
+    padding: 0.35rem 0.65rem;
+  }
+}

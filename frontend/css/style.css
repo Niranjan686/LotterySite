@@ -1,0 +1,717 @@
+/* =========================================================================
+   ROYAL PALMS SOCIETY LUCKY DRAW - LUXURY DESIGN SYSTEM & PRINT STYLES
+   Palette: Ivory White, Champagne Gold, Warm Beige, Soft Cream, Deep Navy
+   ========================================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+:root {
+  /* Luxury Surface Palette */
+  --bg-ivory: #fffefa;
+  --bg-ivory-pure: #ffffff;
+  --bg-soft-cream: #f8f4ec;
+  --bg-cream-tint: #f4eee2;
+  --bg-warm-beige: #efe7da;
+  --bg-beige-deep: #e5dac8;
+
+  /* Champagne Gold Accents */
+  --champagne-light: #edd69f;
+  --champagne-gold: #c89f49;
+  --champagne-deep: #9e7624;
+  --champagne-soft-bg: #fbf6ea;
+  --champagne-border: #dfc792;
+
+  /* Deep Navy Typography & Secondary Accents */
+  --navy-deep: #14213d;
+  --navy-medium: #223357;
+  --navy-soft-bg: #f2f4f8;
+  --navy-border: #d5dce8;
+
+  /* Semantic Status Tones (Muted & Refined) */
+  --emerald-accent: #1e6b43;
+  --emerald-soft-bg: #f1f8f4;
+  --danger-accent: #b93838;
+  --danger-soft-bg: #fcf3f3;
+
+  /* Borders & Hairlines */
+  --border-ivory: #ebe3d5;
+  --border-beige: #dfd4c2;
+
+  /* Text Hierarchy */
+  --text-primary: #14213d;
+  --text-secondary: #3e4c66;
+  --text-muted: #6c778c;
+
+  /* Subtle Luxury Shadows */
+  --shadow-soft: 0 10px 30px rgba(20, 33, 61, 0.05);
+  --shadow-card: 0 18px 44px rgba(20, 33, 61, 0.07);
+  --shadow-gold: 0 10px 26px rgba(168, 126, 43, 0.22);
+
+  /* Typography */
+  --font-serif: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+  /* Legacy Alias Mappings for Secondary Pages */
+  --bg-white: var(--bg-ivory);
+  --bg-light-grey: var(--bg-soft-cream);
+  --bg-very-light-grey: var(--bg-cream-tint);
+  --bg-soft-beige: var(--bg-soft-cream);
+  --border-light: var(--border-ivory);
+  --gold-soft-bg: var(--champagne-soft-bg);
+  --gold-border: var(--champagne-border);
+  --gold-deep: var(--champagne-deep);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-sans);
+  color: var(--text-primary);
+  background-color: var(--bg-soft-cream);
+  background-image: linear-gradient(
+    180deg,
+    #fffefa 0%,
+    #f9f5ed 52%,
+    #f2eadc 100%
+  );
+  background-attachment: fixed;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+.app-wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Typography Helpers */
+.font-display {
+  font-family: var(--font-serif);
+  letter-spacing: -0.015em;
+}
+
+.font-arcade {
+  font-family: var(--font-sans);
+}
+
+.text-gold,
+.text-gold-gradient {
+  color: var(--champagne-deep) !important;
+  background: none;
+  filter: none;
+}
+
+.text-neon-blue {
+  color: var(--navy-medium) !important;
+}
+
+.text-muted-light {
+  color: var(--text-muted) !important;
+}
+
+/* =========================================================================
+   LUXURY IVORY NAVIGATION BAR
+   ========================================================================= */
+.arcade-navbar,
+.spw-navbar {
+  background: rgba(255, 254, 250, 0.95);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--border-ivory);
+  box-shadow: 0 4px 20px rgba(20, 33, 61, 0.035);
+  padding: 0.78rem 0;
+  position: sticky;
+  top: 0;
+  z-index: 1030;
+}
+
+.brand-lockup {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.78rem;
+  text-decoration: none;
+}
+
+.brand-logo-img {
+  width: 42px;
+  height: 42px;
+  border-radius: 11px;
+  object-fit: cover;
+  border: 1px solid var(--champagne-border);
+  background: var(--bg-soft-cream);
+  box-shadow: 0 3px 10px rgba(20, 33, 61, 0.06);
+}
+
+.brand-title {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: 1.12rem;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  color: var(--navy-deep);
+  margin: 0;
+}
+
+.brand-tagline {
+  font-size: 0.74rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  display: block;
+  margin-top: 0.08rem;
+}
+
+.arcade-nav-links {
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.arcade-nav-links .nav-link {
+  color: var(--text-secondary);
+  font-weight: 600;
+  font-size: 0.9rem;
+  padding: 0.5rem 1.05rem !important;
+  border-radius: 999px;
+  transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.arcade-nav-links .nav-link:hover {
+  color: var(--navy-deep);
+  background: var(--bg-soft-cream);
+}
+
+.arcade-nav-links .nav-link.active {
+  color: var(--navy-deep);
+  background: var(--bg-warm-beige);
+  font-weight: 700;
+}
+
+/* Visually Prominent "Play Game" Pill in Navbar */
+.arcade-nav-links .nav-link.nav-game-cta {
+  background: linear-gradient(135deg, #e7cc8e 0%, #cfa754 55%, #bc9039 100%);
+  color: var(--navy-deep) !important;
+  border: 1px solid #b88c34;
+  font-weight: 800;
+  padding: 0.52rem 1.25rem !important;
+  box-shadow: 0 4px 14px rgba(184, 140, 52, 0.22);
+}
+
+.arcade-nav-links .nav-link.nav-game-cta:hover,
+.arcade-nav-links .nav-link.nav-game-cta.active {
+  background: linear-gradient(135deg, #ebd39a 0%, #d5ae5c 55%, #c3963e 100%);
+  color: var(--navy-deep) !important;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(184, 140, 52, 0.3);
+}
+
+.nav-secondary-link {
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-decoration: none;
+  padding: 0.42rem 0.78rem;
+  border-radius: 999px;
+  transition: color 0.18s ease, background-color 0.18s ease;
+}
+
+.nav-secondary-link:hover,
+.nav-secondary-link.active {
+  color: var(--navy-deep);
+  background: var(--bg-warm-beige);
+}
+
+.admin-nav-pill-group {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.22rem 0.4rem;
+  border-radius: 999px;
+  background: var(--bg-soft-cream);
+  border: 1px solid var(--border-beige);
+}
+
+/* =========================================================================
+   ELEVATED IVORY & CREAM CARDS
+   ========================================================================= */
+.glass-panel {
+  background: var(--bg-ivory);
+  border: 1px solid var(--border-ivory);
+  border-radius: 20px;
+  box-shadow: var(--shadow-soft);
+}
+
+.glass-panel-neon {
+  border-color: var(--border-beige);
+}
+
+.glass-panel-gold {
+  background: linear-gradient(180deg, #fffefa 0%, #faf5ea 100%);
+  border-color: var(--champagne-border);
+}
+
+/* =========================================================================
+   REFINED LUXURY BUTTONS (Champagne Gold, Deep Navy & Ivory)
+   ========================================================================= */
+.btn-gold {
+  background: linear-gradient(135deg, #e7cc8e 0%, #cfa754 55%, #bc9039 100%);
+  color: var(--navy-deep) !important;
+  font-weight: 700;
+  border: 1px solid #b58932;
+  border-radius: 12px;
+  padding: 0.64rem 1.4rem;
+  box-shadow: 0 5px 16px rgba(181, 137, 50, 0.2);
+  transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease;
+}
+
+.btn-gold:hover,
+.btn-gold:focus {
+  background: linear-gradient(135deg, #ecd49c 0%, #d5ae5d 55%, #c2963f 100%);
+  color: var(--navy-deep) !important;
+  transform: translateY(-1px);
+  box-shadow: 0 8px 22px rgba(181, 137, 50, 0.28);
+}
+
+.btn-neon-blue,
+.btn-sky {
+  background: var(--navy-deep);
+  color: var(--bg-ivory) !important;
+  border: 1px solid var(--navy-deep);
+  border-radius: 12px;
+  font-weight: 600;
+  padding: 0.62rem 1.3rem;
+  transition: all 0.18s ease;
+}
+
+.btn-neon-blue:hover,
+.btn-sky:hover {
+  background: var(--navy-medium);
+  border-color: var(--navy-medium);
+  color: #ffffff !important;
+  transform: translateY(-1px);
+}
+
+.btn-neon-purple {
+  background: var(--bg-soft-cream);
+  color: var(--navy-deep) !important;
+  border: 1px solid var(--border-beige);
+  border-radius: 12px;
+  font-weight: 600;
+  padding: 0.62rem 1.3rem;
+  transition: all 0.18s ease;
+}
+
+.btn-neon-purple:hover {
+  background: var(--bg-warm-beige);
+  color: var(--navy-deep) !important;
+  transform: translateY(-1px);
+}
+
+.btn-glass {
+  background: var(--bg-ivory);
+  color: var(--text-secondary) !important;
+  border: 1px solid var(--border-beige);
+  border-radius: 12px;
+  font-weight: 600;
+  padding: 0.56rem 1.12rem;
+  transition: all 0.18s ease;
+}
+
+.btn-glass:hover {
+  background: var(--bg-soft-cream);
+  color: var(--navy-deep) !important;
+  border-color: var(--champagne-border);
+}
+
+/* =========================================================================
+   REFINED FORM CONTROLS & TABLES
+   ========================================================================= */
+.arcade-label {
+  font-size: 0.76rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-secondary);
+  margin-bottom: 0.4rem;
+}
+
+.arcade-input,
+.arcade-select {
+  background-color: var(--bg-ivory-pure) !important;
+  border: 1px solid var(--border-beige) !important;
+  color: var(--navy-deep) !important;
+  border-radius: 11px !important;
+  padding: 0.62rem 0.92rem !important;
+  font-size: 0.93rem;
+  transition: border-color 0.18s ease, box-shadow 0.18s ease;
+}
+
+.arcade-input::placeholder {
+  color: #9aa3b5 !important;
+}
+
+.arcade-input:focus,
+.arcade-select:focus {
+  border-color: var(--champagne-gold) !important;
+  box-shadow: 0 0 0 3px rgba(200, 159, 73, 0.16) !important;
+  outline: none;
+}
+
+.arcade-table-wrap {
+  border-radius: 15px;
+  overflow: hidden;
+  border: 1px solid var(--border-ivory);
+  background: var(--bg-ivory-pure);
+}
+
+.arcade-table {
+  margin-bottom: 0;
+  color: var(--navy-deep);
+  --bs-table-bg: #fffefa;
+  --bs-table-color: #14213d;
+  --bs-table-border-color: #efe8dc;
+}
+
+.arcade-table thead th {
+  background: var(--bg-soft-cream);
+  color: var(--text-secondary);
+  font-weight: 700;
+  font-size: 0.76rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0.9rem 1rem;
+  border-bottom: 1px solid var(--border-beige);
+  white-space: nowrap;
+}
+
+.arcade-table tbody td {
+  padding: 0.88rem 1rem;
+  vertical-align: middle;
+  background: var(--bg-ivory);
+  color: var(--navy-deep);
+  font-size: 0.92rem;
+}
+
+.arcade-table tbody tr:hover td {
+  background: #fbf7ef;
+}
+
+/* Status Badges */
+.badge-participating {
+  background: var(--emerald-soft-bg);
+  color: var(--emerald-accent);
+  border: 1px solid #c3e2d0;
+  padding: 0.3rem 0.72rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.badge-excluded {
+  background: var(--danger-soft-bg);
+  color: var(--danger-accent);
+  border: 1px solid #f2c9c9;
+  padding: 0.3rem 0.72rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.badge-winner-crown {
+  background: var(--champagne-soft-bg);
+  color: var(--champagne-deep);
+  border: 1px solid var(--champagne-border);
+  padding: 0.32rem 0.78rem;
+  border-radius: 999px;
+  font-size: 0.76rem;
+  font-weight: 700;
+}
+
+/* Pagination */
+.arcade-pagination .page-link {
+  background: var(--bg-ivory);
+  border-color: var(--border-beige);
+  color: var(--text-secondary);
+  font-weight: 600;
+  margin: 0 2px;
+  border-radius: 9px !important;
+}
+
+.arcade-pagination .page-item.active .page-link {
+  background: var(--navy-deep);
+  border-color: var(--navy-deep);
+  color: var(--bg-ivory);
+  font-weight: 700;
+}
+
+/* Luxury Modals */
+.arcade-modal .modal-content {
+  background: var(--bg-ivory);
+  border: 1px solid var(--border-beige);
+  border-radius: 22px;
+  color: var(--navy-deep);
+  box-shadow: 0 26px 64px rgba(20, 33, 61, 0.16);
+}
+
+.arcade-modal .modal-header {
+  background: var(--bg-soft-cream);
+  border-bottom: 1px solid var(--border-beige);
+  padding: 1.15rem 1.5rem;
+  border-radius: 22px 22px 0 0;
+}
+
+.arcade-modal .modal-footer {
+  border-top: 1px solid var(--border-ivory);
+  padding: 0.95rem 1.5rem;
+}
+
+/* Luxury SweetAlert2 Popup */
+.swal2-popup.arcade-swal {
+  background: var(--bg-ivory) !important;
+  color: var(--navy-deep) !important;
+  border: 1px solid var(--border-beige) !important;
+  border-radius: 20px !important;
+  box-shadow: 0 24px 56px rgba(20, 33, 61, 0.16) !important;
+}
+
+.swal2-popup.arcade-swal .swal2-title {
+  font-family: var(--font-serif) !important;
+  color: var(--navy-deep) !important;
+  font-size: 1.35rem !important;
+  font-weight: 700 !important;
+}
+
+.swal2-popup.arcade-swal .swal2-html-container {
+  color: var(--text-secondary) !important;
+}
+
+/* Minimal Refined Footer */
+.arcade-footer {
+  margin-top: auto;
+  padding: 1.1rem 0;
+  border-top: 1px solid var(--border-ivory);
+  background: rgba(255, 254, 250, 0.82);
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+/* =========================================================================
+   PRINT CONTAINERS (Hidden on screen, active during window.print())
+   ========================================================================= */
+.print-only-container {
+  display: none;
+}
+
+@media print {
+  @page {
+    margin: 12mm;
+  }
+
+  html,
+  body {
+    background: #ffffff !important;
+    background-image: none !important;
+    color: #14213d !important;
+    min-height: auto !important;
+    overflow: visible !important;
+  }
+
+  .app-wrapper,
+  .arcade-navbar,
+  .spw-navbar,
+  .arcade-footer,
+  .modal,
+  .modal-backdrop,
+  .swal2-container,
+  .no-print {
+    display: none !important;
+  }
+
+  body.print-mode-certificate #printableCertificateSection {
+    display: block !important;
+  }
+
+  body.print-mode-report #printableReportSection {
+    display: block !important;
+  }
+
+  .certificate-sheet {
+    width: 100%;
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 28px;
+    border: 6px double #9e7624;
+    border-radius: 14px;
+    background: #fffefa !important;
+    color: #14213d !important;
+    page-break-inside: avoid;
+  }
+
+  .certificate-inner {
+    border: 1.5px solid #c89f49;
+    padding: 32px 36px;
+    text-align: center;
+    border-radius: 8px;
+  }
+
+  .cert-logo {
+    width: 74px;
+    height: 74px;
+    object-fit: contain;
+    margin-bottom: 10px;
+  }
+
+  .cert-society-title {
+    font-size: 22px;
+    font-weight: 800;
+    color: #14213d;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  .cert-society-address {
+    font-size: 12px;
+    color: #3e4c66;
+    margin-bottom: 18px;
+  }
+
+  .cert-badge-ribbon {
+    display: inline-block;
+    padding: 6px 24px;
+    background: #fbf6ea !important;
+    border: 1px solid #c89f49;
+    border-radius: 999px;
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: 1.5px;
+    color: #9e7624;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .cert-main-heading {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: #9e7624;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+  }
+
+  .cert-winner-name {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: #14213d;
+    border-bottom: 2px solid #c89f49;
+    display: inline-block;
+    padding: 4px 32px 8px;
+    margin: 10px 0 18px;
+  }
+
+  .cert-details-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin: 20px 0 28px;
+    text-align: center;
+  }
+
+  .cert-detail-box {
+    border: 1px solid #dfd4c2;
+    border-radius: 8px;
+    padding: 10px 12px;
+    background: #f8f4ec !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .cert-detail-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: #6c778c;
+    font-weight: 700;
+  }
+
+  .cert-detail-value {
+    font-size: 15px;
+    font-weight: 700;
+    color: #14213d;
+    margin-top: 3px;
+  }
+
+  .cert-footer-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-top: 34px;
+    padding-top: 16px;
+  }
+
+  .cert-sign-line {
+    width: 210px;
+    border-top: 1.5px solid #14213d;
+    padding-top: 6px;
+    font-size: 12px;
+    font-weight: 700;
+    color: #14213d;
+  }
+
+  .report-print-wrapper {
+    width: 100%;
+    color: #14213d !important;
+  }
+
+  .report-print-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 2px solid #14213d;
+    padding-bottom: 12px;
+    margin-bottom: 16px;
+  }
+
+  .report-print-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 11.5px;
+  }
+
+  .report-print-table thead {
+    display: table-header-group;
+  }
+
+  .report-print-table th {
+    background: #f8f4ec !important;
+    color: #14213d !important;
+    border: 1px solid #dfd4c2;
+    padding: 7px 8px;
+    text-align: left;
+    font-weight: 700;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .report-print-table td {
+    border: 1px solid #dfd4c2;
+    padding: 6px 8px;
+    color: #14213d !important;
+  }
+
+  .report-print-table tr {
+    page-break-inside: avoid;
+  }
+}

@@ -1,0 +1,1004 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Portal — Royal Palms Flat Allocation Lottery</title>
+  <link rel="icon" type="image/svg+xml" href="assets/images/logo.svg" />
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/admin-portal.css" />
+</head>
+<body>
+  <!-- =====================================================================
+       DIRECT OPEN-ACCESS 11-MODULE ADMIN PORTAL WORKSPACE (NO SIGN-IN)
+       ===================================================================== -->
+  <div id="adminWorkspaceSection" class="admin-layout">
+    <!-- Left Navigation Sidebar (All 11 Modules) -->
+    <aside class="admin-sidebar no-print">
+      <div class="sidebar-brand">
+        <img src="assets/images/logo.svg" alt="Crest" id="admSidebarLogo" />
+        <div>
+          <div class="sidebar-brand-title">Royal Palms</div>
+          <div class="sidebar-brand-sub">Flat Allocation Admin</div>
+        </div>
+      </div>
+
+      <nav class="sidebar-nav" id="adminSidebarNav">
+        <button type="button" class="sidebar-nav-btn active" data-tab="tab-overview">
+          <i class="fa-solid fa-chart-pie"></i><span>Overview Dashboard</span>
+        </button>
+        <button type="button" class="sidebar-nav-btn" data-tab="tab-participants">
+          <i class="fa-solid fa-users"></i><span>Upload Participants</span>
+        </button>
+        <button type="button" class="sidebar-nav-btn" data-tab="tab-flats">
+          <i class="fa-solid fa-building"></i><span>Manage Flat Numbers</span>
+        </button>
+        <button type="button" class="sidebar-nav-btn" data-tab="tab-fixed-mapping">
+          <i class="fa-solid fa-thumbtack"></i><span>Fixed Flat Mapping</span>
+        </button>
+        <button type="button" class="sidebar-nav-btn" data-tab="tab-lottery-config">
+          <i class="fa-solid fa-sliders"></i><span>Lottery Configuration</span>
+        </button>
+        <button type="button" class="sidebar-nav-btn" data-tab="tab-live-lottery">
+          <i class="fa-solid fa-tv"></i><span>Live Lottery</span>
+        </button>
+        <button type="button" class="sidebar-nav-btn" data-tab="tab-history">
+          <i class="fa-solid fa-clock-rotate-left"></i><span>Allocation History</span>
+        </button>
+        <button type="button" class="sidebar-nav-btn" data-tab="tab-winners">
+          <i class="fa-solid fa-trophy"></i><span>Winners List</span>
+        </button>
+        <button type="button" class="sidebar-nav-btn" data-tab="tab-reports">
+          <i class="fa-solid fa-file-invoice"></i><span>Reports &amp; Exports</span>
+        </button>
+        <button type="button" class="sidebar-nav-btn" data-tab="tab-settings">
+          <i class="fa-solid fa-gear"></i><span>Settings &amp; Backup</span>
+        </button>
+        <button type="button" class="sidebar-nav-btn" data-tab="tab-admins">
+          <i class="fa-solid fa-user-shield"></i><span>Admin Users</span>
+        </button>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="fw-bold text-white" id="admCurrentUserName">Lottery Committee</div>
+        <div class="text-warning small mb-2" id="admCurrentUserRole">DIRECT ADMIN ACCESS</div>
+        <div class="d-flex gap-2">
+          <a href="index.html" class="btn btn-sm btn-outline-light flex-grow-1">Portal Home</a>
+          <a href="live-lottery.html" class="btn btn-sm btn-outline-warning flex-grow-1">Live Show</a>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Workspace Column -->
+    <div class="admin-main">
+      <!-- Sticky Topbar -->
+      <header class="admin-topbar no-print">
+        <div>
+          <h2 class="h5 fw-bold mb-0" id="admActiveModuleTitle">Overview Dashboard</h2>
+          <small class="text-secondary" id="admSocietySubLabel">Royal Palms Co-operative Housing Society • MongoDB Primary</small>
+        </div>
+
+        <div class="d-flex align-items-center flex-wrap gap-2">
+          <span class="pill-status pill-fixed" id="admTopEventStatus">STATUS: DRAFT</span>
+          <button type="button" id="admDemoResetBtn" class="btn btn-sm btn-adm-navy" title="Load dummy data or reset random draws to repeat demo N times">
+            <i class="fa-solid fa-wand-magic-sparkles me-1 text-warning"></i>Demo Data / Reset
+          </button>
+          <a href="live-lottery.html" target="_blank" class="btn btn-sm btn-adm-gold">
+            <i class="fa-solid fa-up-right-from-square me-1"></i>Open Live Show Projector
+          </a>
+          <button type="button" id="admRefreshAllBtn" class="btn btn-sm btn-adm-outline" title="Refresh MongoDB Data">
+            <i class="fa-solid fa-arrows-rotate"></i>
+          </button>
+        </div>
+      </header>
+
+      <div class="admin-content-body">
+        <!-- =================================================================
+             MODULE 1: OVERVIEW DASHBOARD
+             ================================================================= -->
+        <section id="tab-overview" class="adm-module-pane active">
+          <div id="overviewMismatchAlert"></div>
+
+          <!-- All 8 Required Real MongoDB Statistics -->
+          <div class="row g-3 mb-4">
+            <div class="col-6 col-xl-3">
+              <div class="adm-kpi-card">
+                <div class="adm-kpi-label">Total Participants</div>
+                <div class="adm-kpi-val" id="kpiTotalParticipants">0</div>
+              </div>
+            </div>
+            <div class="col-6 col-xl-3">
+              <div class="adm-kpi-card">
+                <div class="adm-kpi-label">Total Flats</div>
+                <div class="adm-kpi-val" id="kpiTotalFlats">0</div>
+              </div>
+            </div>
+            <div class="col-6 col-xl-3">
+              <div class="adm-kpi-card">
+                <div class="adm-kpi-label">Fixed Allocations</div>
+                <div class="adm-kpi-val" style="color: var(--adm-gold-deep);" id="kpiFixedAllocations">0</div>
+              </div>
+            </div>
+            <div class="col-6 col-xl-3">
+              <div class="adm-kpi-card">
+                <div class="adm-kpi-label">Random Allocations</div>
+                <div class="adm-kpi-val text-primary" id="kpiRandomAllocations">0</div>
+              </div>
+            </div>
+            <div class="col-6 col-xl-3">
+              <div class="adm-kpi-card">
+                <div class="adm-kpi-label">Remaining Participants</div>
+                <div class="adm-kpi-val text-success" id="kpiRemainingParticipants">0</div>
+              </div>
+            </div>
+            <div class="col-6 col-xl-3">
+              <div class="adm-kpi-card">
+                <div class="adm-kpi-label">Remaining Flats</div>
+                <div class="adm-kpi-val text-success" id="kpiRemainingFlats">0</div>
+              </div>
+            </div>
+            <div class="col-6 col-xl-3">
+              <div class="adm-kpi-card">
+                <div class="adm-kpi-label">Total Allocated</div>
+                <div class="adm-kpi-val" id="kpiTotalAllocated">0</div>
+              </div>
+            </div>
+            <div class="col-6 col-xl-3">
+              <div class="adm-kpi-card">
+                <div class="adm-kpi-label">Pending Allocations</div>
+                <div class="adm-kpi-val text-secondary" id="kpiPendingAllocations">0</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="adm-card">
+            <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-3">
+              <h5 class="h6 fw-bold mb-0">Recent Official Allocations (MongoDB Live)</h5>
+              <div class="d-flex gap-2 flex-wrap">
+                <button type="button" class="btn btn-sm btn-adm-outline js-jump-tab" data-target="tab-participants">Upload Participants</button>
+                <button type="button" class="btn btn-sm btn-adm-outline js-jump-tab" data-target="tab-flats">Manage Flats</button>
+                <button type="button" class="btn btn-sm btn-adm-outline js-jump-tab" data-target="tab-fixed-mapping">Fixed Mapping</button>
+                <button type="button" class="btn btn-sm btn-adm-gold js-jump-tab" data-target="tab-lottery-config">Start / Configure Lottery</button>
+              </div>
+            </div>
+
+            <div class="table-responsive adm-table-wrap">
+              <table class="table adm-table">
+                <thead>
+                  <tr>
+                    <th>Allocation ID</th>
+                    <th>Type</th>
+                    <th>Participant</th>
+                    <th>Flat No</th>
+                    <th>Wing / Floor</th>
+                    <th>Allocated At</th>
+                    <th class="text-end">Ticket</th>
+                  </tr>
+                </thead>
+                <tbody id="overviewRecentBody">
+                  <tr><td colspan="7" class="text-center py-4 text-muted">Loading...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- =================================================================
+             MODULE 2: UPLOAD PARTICIPANTS (500+ NAMES)
+             ================================================================= -->
+        <section id="tab-participants" class="adm-module-pane">
+          <div class="adm-card mb-4">
+            <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-3">
+              <div>
+                <h5 class="h6 fw-bold mb-1">Upload Participants (.xlsx / .csv — 500+ Supported)</h5>
+                <p class="small text-secondary mb-0">
+                  Required: <strong>Full Name</strong> &amp; <strong>Unique Participant ID</strong>. Optional: Registration No, Mobile, Wing/Building, Notes.
+                </p>
+              </div>
+              <div class="d-flex flex-wrap gap-2">
+                <button type="button" id="dlPartTemplateXlsx" class="btn btn-sm btn-adm-outline">
+                  <i class="fa-solid fa-download me-1"></i>Template (.xlsx)
+                </button>
+                <button type="button" id="dlPartTemplateCsv" class="btn btn-sm btn-adm-outline">
+                  Template (.csv)
+                </button>
+                <button type="button" id="dlPartSample500" class="btn btn-sm btn-adm-navy">
+                  <i class="fa-solid fa-users me-1"></i>500+ Sample (.xlsx)
+                </button>
+                <button type="button" id="openAddParticipantModalBtn" class="btn btn-sm btn-adm-gold">
+                  <i class="fa-solid fa-user-plus me-1"></i>Add Participant
+                </button>
+              </div>
+            </div>
+
+            <div id="partDropArea" class="upload-drop-area">
+              <input type="file" id="partFileInput" accept=".xlsx,.xls,.csv" class="d-none" />
+              <i class="fa-solid fa-file-arrow-up fs-3 text-warning mb-2"></i>
+              <div class="fw-bold">Click or Drag &amp; Drop Participants Excel (.xlsx) or CSV File</div>
+              <div class="small text-secondary">Preview &amp; fix invalid or duplicate rows before importing into MongoDB</div>
+            </div>
+
+            <!-- Interactive Upload Preview & Error Correction Panel -->
+            <div id="partPreviewContainer" class="mt-3 d-none">
+              <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-2 p-2 rounded bg-light border">
+                <div class="d-flex gap-2 flex-wrap small">
+                  <span class="badge bg-dark">Rows: <strong id="partPrevTotal">0</strong></span>
+                  <span class="badge bg-success">Valid: <strong id="partPrevValid">0</strong></span>
+                  <span class="badge bg-danger">Invalid / Duplicate: <strong id="partPrevInvalid">0</strong></span>
+                </div>
+                <div class="d-flex align-items-center gap-3 flex-wrap">
+                  <div class="form-check form-switch mb-0 small">
+                    <input class="form-check-input" type="checkbox" id="partSkipDbDups" checked />
+                    <label class="form-check-label" for="partSkipDbDups">Skip Existing DB Duplicates</label>
+                  </div>
+                  <button type="button" id="partRevalidateBtn" class="btn btn-sm btn-adm-outline">Re-Validate Edits</button>
+                  <button type="button" id="partConfirmImportBtn" class="btn btn-sm btn-adm-gold">Confirm Import to MongoDB</button>
+                  <button type="button" id="partCancelPreviewBtn" class="btn btn-sm btn-outline-secondary">Close Preview</button>
+                </div>
+              </div>
+
+              <div class="table-responsive adm-table-wrap" style="max-height: 340px; overflow-y: auto;">
+                <table class="table adm-table table-sm">
+                  <thead>
+                    <tr>
+                      <th>Row</th>
+                      <th>Participant ID *</th>
+                      <th>Full Name *</th>
+                      <th>Reg. No</th>
+                      <th>Mobile</th>
+                      <th>Wing/Bldg</th>
+                      <th>Validation Status</th>
+                      <th>Remove</th>
+                    </tr>
+                  </thead>
+                  <tbody id="partPreviewTableBody"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- Registered Participants Directory -->
+          <div class="adm-card">
+            <div class="row g-2 align-items-end mb-3">
+              <div class="col-md-4">
+                <label class="form-label small fw-bold mb-1">Search Name / ID / Reg / Mobile</label>
+                <input type="text" id="partSearchInput" class="form-control form-control-sm" placeholder="Search participant..." />
+              </div>
+              <div class="col-md-3">
+                <label class="form-label small fw-bold mb-1">Status</label>
+                <select id="partStatusFilter" class="form-select form-select-sm">
+                  <option value="all">All Statuses</option>
+                  <option value="PENDING">Pending (Eligible)</option>
+                  <option value="FIXED_MAPPED">Fixed-Mapped</option>
+                  <option value="ALLOCATED">Allocated (Random)</option>
+                </select>
+              </div>
+              <div class="col-md-3">
+                <label class="form-label small fw-bold mb-1">Wing / Building</label>
+                <select id="partWingFilter" class="form-select form-select-sm">
+                  <option value="">All Wings</option>
+                </select>
+              </div>
+              <div class="col-md-2 text-end">
+                <span class="small text-secondary" id="partCountBadge">0 records</span>
+              </div>
+            </div>
+
+            <div class="table-responsive adm-table-wrap">
+              <table class="table adm-table">
+                <thead>
+                  <tr>
+                    <th>Participant ID</th>
+                    <th>Full Name</th>
+                    <th>Reg. No</th>
+                    <th>Mobile</th>
+                    <th>Wing / Bldg</th>
+                    <th>Status</th>
+                    <th>Allocated Flat</th>
+                    <th class="text-end">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="participantsTableBody"></tbody>
+              </table>
+            </div>
+
+            <div class="d-flex justify-content-between align-items-center mt-3">
+              <small class="text-secondary" id="partPageLabel">Page 1</small>
+              <div class="btn-group btn-group-sm">
+                <button type="button" id="partPrevPageBtn" class="btn btn-adm-outline">Prev</button>
+                <button type="button" id="partNextPageBtn" class="btn btn-adm-outline">Next</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- =================================================================
+             MODULE 3: MANAGE FLAT NUMBERS
+             ================================================================= -->
+        <section id="tab-flats" class="adm-module-pane">
+          <div class="adm-card mb-4">
+            <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-3">
+              <div>
+                <h5 class="h6 fw-bold mb-1">Upload or Enter Flat Sequence</h5>
+                <p class="small text-secondary mb-0">
+                  Upload Excel/CSV flat inventory or paste a comma-separated sequence (e.g. <code>101, 102, 103, 201, 202</code>).
+                </p>
+              </div>
+              <div class="d-flex flex-wrap gap-2">
+                <button type="button" id="dlFlatTemplateXlsx" class="btn btn-sm btn-adm-outline">
+                  <i class="fa-solid fa-download me-1"></i>Template (.xlsx)
+                </button>
+                <button type="button" id="dlFlatSample500" class="btn btn-sm btn-adm-navy">
+                  <i class="fa-solid fa-building me-1"></i>500+ Flats Sample (.xlsx)
+                </button>
+                <button type="button" id="openAddFlatModalBtn" class="btn btn-sm btn-adm-gold">
+                  <i class="fa-solid fa-plus me-1"></i>Add Single Flat
+                </button>
+              </div>
+            </div>
+
+            <div class="row g-3">
+              <div class="col-lg-6">
+                <div id="flatDropArea" class="upload-drop-area h-100 d-flex flex-column justify-content-center">
+                  <input type="file" id="flatFileInput" accept=".xlsx,.xls,.csv" class="d-none" />
+                  <i class="fa-solid fa-file-excel fs-3 text-success mb-2"></i>
+                  <div class="fw-bold">Upload Flats Excel (.xlsx) or CSV</div>
+                  <div class="small text-secondary">Columns: Flat Number, Wing, Floor, Building</div>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="p-3 rounded-3 border bg-light h-100">
+                  <label class="form-label small fw-bold mb-1">Quick Flat Sequence Entry</label>
+                  <textarea id="flatSequenceTextarea" rows="2" class="form-control form-control-sm mb-2" placeholder="101, 102, 103, 104, 105, 201, 202, 203..."></textarea>
+                  <div class="row g-2">
+                    <div class="col-5">
+                      <input type="text" id="flatSeqWing" class="form-control form-control-sm" placeholder="Wing (e.g. Wing A)" />
+                    </div>
+                    <div class="col-4">
+                      <input type="text" id="flatSeqBuilding" class="form-control form-control-sm" placeholder="Building" />
+                    </div>
+                    <div class="col-3">
+                      <button type="button" id="flatSeqSubmitBtn" class="btn btn-sm btn-adm-gold w-100">Add List</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Complete Flat Inventory Table -->
+          <div class="adm-card">
+            <div class="row g-2 align-items-end mb-3">
+              <div class="col-md-3">
+                <label class="form-label small fw-bold mb-1">Search Flat / Allottee</label>
+                <input type="text" id="flatSearchInput" class="form-control form-control-sm" placeholder="e.g. 101, A-101..." />
+              </div>
+              <div class="col-md-3">
+                <label class="form-label small fw-bold mb-1">Status</label>
+                <select id="flatStatusFilter" class="form-select form-select-sm">
+                  <option value="all">All Inventory</option>
+                  <option value="AVAILABLE">Available</option>
+                  <option value="FIXED_MAPPED">Fixed-Mapped</option>
+                  <option value="ALLOCATED">Allocated</option>
+                </select>
+              </div>
+              <div class="col-md-2">
+                <label class="form-label small fw-bold mb-1">Wing</label>
+                <select id="flatWingFilter" class="form-select form-select-sm">
+                  <option value="">All Wings</option>
+                </select>
+              </div>
+              <div class="col-md-2">
+                <label class="form-label small fw-bold mb-1">Floor</label>
+                <select id="flatFloorFilter" class="form-select form-select-sm">
+                  <option value="">All Floors</option>
+                </select>
+              </div>
+              <div class="col-md-2 text-end">
+                <span class="small text-secondary" id="flatCountBadge">0 flats</span>
+              </div>
+            </div>
+
+            <div class="table-responsive adm-table-wrap">
+              <table class="table adm-table">
+                <thead>
+                  <tr>
+                    <th>Flat Number</th>
+                    <th>Wing</th>
+                    <th>Floor</th>
+                    <th>Building</th>
+                    <th>Status</th>
+                    <th>Allotted Participant</th>
+                    <th>Allocation ID</th>
+                    <th class="text-end">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="flatsInventoryBody"></tbody>
+              </table>
+            </div>
+
+            <div class="d-flex justify-content-between align-items-center mt-3">
+              <small class="text-secondary" id="flatPageLabel">Page 1</small>
+              <div class="btn-group btn-group-sm">
+                <button type="button" id="flatPrevPageBtn" class="btn btn-adm-outline">Prev</button>
+                <button type="button" id="flatNextPageBtn" class="btn btn-adm-outline">Next</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- =================================================================
+             MODULE 4: FIXED FLAT MAPPING (MANUAL ALLOCATION)
+             ================================================================= -->
+        <section id="tab-fixed-mapping" class="adm-module-pane">
+          <div class="adm-card mb-4">
+            <h5 class="h6 fw-bold mb-1">Fixed Allocation / Manual Mapping</h5>
+            <p class="small text-secondary mb-3">
+              Pre-assign specific flats to specific participants before starting the random draw. Fixed-mapped participants and flats are strictly excluded from the random pools.
+            </p>
+
+            <form id="createFixedMappingForm" class="row g-3 align-items-end">
+              <div class="col-md-4">
+                <label class="form-label small fw-bold mb-1">Select Eligible Participant *</label>
+                <select id="mapParticipantSelect" class="form-select form-select-sm" required>
+                  <option value="">Choose Participant...</option>
+                </select>
+              </div>
+              <div class="col-md-3">
+                <label class="form-label small fw-bold mb-1">Select Available Flat *</label>
+                <select id="mapFlatSelect" class="form-select form-select-sm" required>
+                  <option value="">Choose Flat...</option>
+                </select>
+              </div>
+              <div class="col-md-3">
+                <label class="form-label small fw-bold mb-1">Reason / Committee Note</label>
+                <input type="text" id="mapReasonInput" class="form-control form-control-sm" placeholder="e.g. Committee pre-approved unit" />
+              </div>
+              <div class="col-md-2">
+                <button type="submit" class="btn btn-sm btn-adm-gold w-100 py-2">
+                  <i class="fa-solid fa-link me-1"></i>Map Fixed Flat
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <div class="adm-card">
+            <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-3">
+              <h6 class="fw-bold mb-0">Active Fixed Flat Mappings</h6>
+              <input type="text" id="mapSearchInput" class="form-control form-control-sm" style="max-width: 240px;" placeholder="Search mapped name or flat..." />
+            </div>
+
+            <div class="table-responsive adm-table-wrap">
+              <table class="table adm-table">
+                <thead>
+                  <tr>
+                    <th>Allocation ID</th>
+                    <th>Participant Name</th>
+                    <th>Participant ID</th>
+                    <th>Fixed Flat</th>
+                    <th>Wing / Floor</th>
+                    <th>Reason</th>
+                    <th>Mapped By</th>
+                    <th class="text-end">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="fixedMappingsTableBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- =================================================================
+             MODULE 5: LOTTERY CONFIGURATION & BATCH ENGINE
+             ================================================================= -->
+        <section id="tab-lottery-config" class="adm-module-pane">
+          <div class="row g-4">
+            <div class="col-lg-6">
+              <div class="adm-card h-100">
+                <h5 class="h6 fw-bold mb-3">Pre-Lottery Readiness &amp; Execution Controls</h5>
+                <div id="configPrecheckBox" class="p-3 rounded-3 border bg-light mb-3 small">
+                  Loading pre-lottery verification summary...
+                </div>
+
+                <div class="d-grid gap-2">
+                  <button type="button" id="cfgStartLotteryBtn" class="btn btn-adm-gold py-2">
+                    <i class="fa-solid fa-play me-2"></i>Confirm Summary &amp; Start Lottery Event
+                  </button>
+                  <button type="button" id="cfgRunBatchBtn" class="btn btn-adm-navy py-2">
+                    <i class="fa-solid fa-bolt me-2"></i>Run Complete Random Allocation (All Remaining)
+                  </button>
+                  <div class="d-flex gap-2">
+                    <button type="button" id="cfgPauseBtn" class="btn btn-adm-outline flex-grow-1">Pause Event</button>
+                    <button type="button" id="cfgResumeBtn" class="btn btn-adm-outline flex-grow-1">Resume Event</button>
+                    <button type="button" id="cfgFinalizeBtn" class="btn btn-outline-danger flex-grow-1">Finalize &amp; Lock</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-6">
+              <div class="adm-card h-100">
+                <h5 class="h6 fw-bold mb-3">Live Show Timing &amp; Ticket Configuration</h5>
+                <form id="lotteryTimingConfigForm">
+                  <div class="row g-3 mb-3">
+                    <div class="col-sm-6">
+                      <label class="form-label small fw-bold">Countdown (Seconds)</label>
+                      <input type="number" id="cfgCountdownSec" class="form-control form-control-sm" min="1" max="10" value="3" />
+                    </div>
+                    <div class="col-sm-6">
+                      <label class="form-label small fw-bold">Ticket ID Prefix</label>
+                      <input type="text" id="cfgTicketPrefix" class="form-control form-control-sm" maxlength="8" value="RP" />
+                    </div>
+                    <div class="col-sm-6">
+                      <label class="form-label small fw-bold">Name Selection Duration (ms)</label>
+                      <input type="number" id="cfgNameDuration" class="form-control form-control-sm" min="800" max="12000" step="200" value="2800" />
+                    </div>
+                    <div class="col-sm-6">
+                      <label class="form-label small fw-bold">Flat Reveal Duration (ms)</label>
+                      <input type="number" id="cfgFlatDuration" class="form-control form-control-sm" min="800" max="12000" step="200" value="2400" />
+                    </div>
+                  </div>
+
+                  <div class="d-flex gap-4 mb-3">
+                    <div class="form-check form-switch">
+                      <input class="form-check-input" type="checkbox" id="cfgSoundSwitch" checked />
+                      <label class="form-check-label small fw-semibold" for="cfgSoundSwitch">Show Music &amp; SFX</label>
+                    </div>
+                    <div class="form-check form-switch">
+                      <input class="form-check-input" type="checkbox" id="cfgConfettiSwitch" checked />
+                      <label class="form-check-label small fw-semibold" for="cfgConfettiSwitch">Gold Confetti Reveal</label>
+                    </div>
+                  </div>
+
+                  <button type="submit" class="btn btn-adm-navy w-100">Save Lottery Configuration</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- =================================================================
+             MODULE 6: LIVE LOTTERY OPERATOR LAUNCHPAD
+             ================================================================= -->
+        <section id="tab-live-lottery" class="adm-module-pane">
+          <div class="adm-card mb-4 text-center py-4" style="background: linear-gradient(135deg, #09142e 0%, #122654 100%); color: #fffdf8;">
+            <div class="small text-warning fw-bold mb-1">TELEVISION GAME-SHOW PRESENTATION</div>
+            <h3 class="fw-bold mb-2" style="font-family: var(--font-serif);">ROYAL PALMS — GRAND FLAT ALLOCATION</h3>
+            <p class="small text-light opacity-75 mx-auto mb-3" style="max-width: 580px;">
+              Open the dedicated full-screen Live Lottery Show on your LED wall or projector for the dramatic 3-2-1 countdown, music, participant reveal, flat reveal, and congratulatory ticket ceremony.
+            </p>
+            <div class="d-flex justify-content-center flex-wrap gap-2">
+              <a href="live-lottery.html" target="_blank" class="btn btn-adm-gold px-4 py-2">
+                <i class="fa-solid fa-tv me-2"></i>Launch Full-Screen Live Show
+              </a>
+              <button type="button" id="admQuickDrawOneBtn" class="btn btn-outline-light px-4 py-2">
+                <i class="fa-solid fa-wand-magic-sparkles me-2"></i>Draw Next Allocation Now
+              </button>
+            </div>
+          </div>
+
+          <div id="admLiveLatestTicketBox"></div>
+        </section>
+
+        <!-- =================================================================
+             MODULE 7: ALLOCATION HISTORY
+             ================================================================= -->
+        <section id="tab-history" class="adm-module-pane">
+          <div class="adm-card">
+            <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-3">
+              <h5 class="h6 fw-bold mb-0">Complete Chronological Allocation History</h5>
+              <div class="d-flex gap-2">
+                <input type="text" id="histSearchInput" class="form-control form-control-sm" placeholder="Search ID, Name, Flat..." />
+                <select id="histTypeFilter" class="form-select form-select-sm" style="width: 150px;">
+                  <option value="">All Types</option>
+                  <option value="RANDOM">Random Only</option>
+                  <option value="FIXED">Fixed Only</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="table-responsive adm-table-wrap">
+              <table class="table adm-table">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Allocation ID</th>
+                    <th>Type</th>
+                    <th>Participant</th>
+                    <th>Flat No</th>
+                    <th>Date &amp; Time</th>
+                    <th>Initiated By</th>
+                    <th>Verify Ref</th>
+                    <th class="text-end">Ticket / Audit</th>
+                  </tr>
+                </thead>
+                <tbody id="historyTableBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- =================================================================
+             MODULE 8: WINNERS / ALLOTTEES LIST
+             ================================================================= -->
+        <section id="tab-winners" class="adm-module-pane">
+          <div class="adm-card">
+            <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-3">
+              <div>
+                <h5 class="h6 fw-bold mb-0">Official Flat Allottees &amp; Digital Tickets</h5>
+                <small class="text-secondary">View, print, or download PDF tickets for any allocated resident.</small>
+              </div>
+              <div class="d-flex gap-2 flex-wrap">
+                <input type="text" id="winListSearchInput" class="form-control form-control-sm" style="width: 220px;" placeholder="Search winner or flat..." />
+                <button type="button" id="winPrintAllTicketsBtn" class="btn btn-sm btn-adm-gold">
+                  <i class="fa-solid fa-print me-1"></i>Print All Tickets
+                </button>
+              </div>
+            </div>
+
+            <div class="table-responsive adm-table-wrap">
+              <table class="table adm-table">
+                <thead>
+                  <tr>
+                    <th>Flat No</th>
+                    <th>Wing / Floor</th>
+                    <th>Allotted Resident</th>
+                    <th>Participant ID</th>
+                    <th>Allocation ID</th>
+                    <th>Type</th>
+                    <th class="text-end">Ticket Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="winnersListBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- =================================================================
+             MODULE 9: REPORTS & EXPORTS (ALL 9 REPORTS + AUDIT REPORT)
+             ================================================================= -->
+        <section id="tab-reports" class="adm-module-pane">
+          <div class="adm-card mb-4">
+            <h5 class="h6 fw-bold mb-3">Official Reports, Ticket Printing &amp; Exports</h5>
+            <div class="row g-3 align-items-end">
+              <div class="col-md-3">
+                <label class="form-label small fw-bold mb-1">Select Report *</label>
+                <select id="repTypeSelect" class="form-select form-select-sm">
+                  <option value="complete-allocations">5. Complete Allocation Report</option>
+                  <option value="all-participants">1. All Participants</option>
+                  <option value="available-flats">2. All Available Flats (Inventory)</option>
+                  <option value="fixed-allocations">3. Fixed Allocations</option>
+                  <option value="random-allocations">4. Random Allocations</option>
+                  <option value="pending-participants">6. Pending Participants</option>
+                  <option value="remaining-flats">7. Remaining Flats</option>
+                  <option value="allocation-history">8. Allocation History</option>
+                  <option value="date-wise-allocations">9. Date-wise Allocation Report</option>
+                  <option value="audit-report">10. Complete Allocation Audit Report</option>
+                </select>
+              </div>
+              <div class="col-md-2">
+                <label class="form-label small fw-bold mb-1">Name / ID Filter</label>
+                <input type="text" id="repSearchInput" class="form-control form-control-sm" placeholder="Filter name..." />
+              </div>
+              <div class="col-md-2">
+                <label class="form-label small fw-bold mb-1">Flat No</label>
+                <input type="text" id="repFlatInput" class="form-control form-control-sm" placeholder="e.g. 101" />
+              </div>
+              <div class="col-md-1">
+                <label class="form-label small fw-bold mb-1">Wing</label>
+                <input type="text" id="repWingInput" class="form-control form-control-sm" placeholder="Wing" />
+              </div>
+              <div class="col-md-1">
+                <label class="form-label small fw-bold mb-1">Floor</label>
+                <input type="text" id="repFloorInput" class="form-control form-control-sm" placeholder="Flr" />
+              </div>
+              <div class="col-md-3 d-flex gap-2">
+                <div>
+                  <label class="form-label small fw-bold mb-1">From</label>
+                  <input type="date" id="repDateFrom" class="form-control form-control-sm" />
+                </div>
+                <div>
+                  <label class="form-label small fw-bold mb-1">To</label>
+                  <input type="date" id="repDateTo" class="form-control form-control-sm" />
+                </div>
+              </div>
+            </div>
+
+            <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mt-3 pt-3 border-top">
+              <button type="button" id="repLoadPreviewBtn" class="btn btn-sm btn-adm-navy">
+                <i class="fa-solid fa-magnifying-glass me-1"></i>Load Report Preview
+              </button>
+
+              <div class="d-flex flex-wrap gap-2">
+                <button type="button" id="repExportXlsxBtn" class="btn btn-sm btn-adm-outline">
+                  <i class="fa-solid fa-file-excel text-success me-1"></i>Export Excel (.xlsx)
+                </button>
+                <button type="button" id="repExportCsvBtn" class="btn btn-sm btn-adm-outline">
+                  <i class="fa-solid fa-file-csv text-primary me-1"></i>Export CSV (.csv)
+                </button>
+                <button type="button" id="repExportPdfBtn" class="btn btn-sm btn-adm-outline">
+                  <i class="fa-solid fa-file-pdf text-danger me-1"></i>Generate PDF (.pdf)
+                </button>
+                <button type="button" id="repPrintTableBtn" class="btn btn-sm btn-adm-outline">
+                  <i class="fa-solid fa-print me-1"></i>Print Report
+                </button>
+                <button type="button" id="repPrintAllTicketsBtn" class="btn btn-sm btn-adm-gold">
+                  <i class="fa-solid fa-ticket me-1"></i>Print All Tickets
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="adm-card">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <h6 class="fw-bold mb-0" id="repPreviewTitle">Report Preview</h6>
+              <span class="small text-secondary" id="repPreviewCount">0 rows</span>
+            </div>
+            <div class="table-responsive adm-table-wrap" style="max-height: 440px; overflow-y: auto;">
+              <table class="table adm-table table-sm">
+                <thead id="repPreviewThead"></thead>
+                <tbody id="repPreviewTbody"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- =================================================================
+             MODULE 10: SETTINGS, BACKUP & AUDIT LOGS
+             ================================================================= -->
+        <section id="tab-settings" class="adm-module-pane">
+          <div class="row g-4 mb-4">
+            <div class="col-lg-7">
+              <div class="adm-card h-100">
+                <h5 class="h6 fw-bold mb-3">Society &amp; Event Branding Settings</h5>
+                <form id="societyEventSettingsForm">
+                  <div class="row g-3 mb-3">
+                    <div class="col-md-6">
+                      <label class="form-label small fw-bold">Society Name *</label>
+                      <input type="text" id="setSocName" class="form-control form-control-sm" required />
+                    </div>
+                    <div class="col-md-6">
+                      <label class="form-label small fw-bold">Lottery Event Title *</label>
+                      <input type="text" id="setEvName" class="form-control form-control-sm" required />
+                    </div>
+                    <div class="col-md-12">
+                      <label class="form-label small fw-bold">Society Address</label>
+                      <input type="text" id="setSocAddr" class="form-control form-control-sm" />
+                    </div>
+                    <div class="col-md-4">
+                      <label class="form-label small fw-bold">Registration No</label>
+                      <input type="text" id="setRegNo" class="form-control form-control-sm" />
+                    </div>
+                    <div class="col-md-5">
+                      <label class="form-label small fw-bold">Committee Name</label>
+                      <input type="text" id="setCommName" class="form-control form-control-sm" />
+                    </div>
+                    <div class="col-md-3">
+                      <label class="form-label small fw-bold">Contact Phone</label>
+                      <input type="text" id="setPhone" class="form-control form-control-sm" />
+                    </div>
+                  </div>
+                  <button type="submit" class="btn btn-sm btn-adm-gold px-4">Save Society Settings</button>
+                </form>
+              </div>
+            </div>
+
+            <div class="col-lg-5">
+              <div class="adm-card h-100 d-flex flex-column justify-content-between">
+                <div>
+                  <h5 class="h6 fw-bold mb-2">MongoDB Database Backup &amp; Audit Export</h5>
+                  <p class="small text-secondary">
+                    Download a complete JSON snapshot of all MongoDB lottery collections (<code>LotteryEvents</code>, <code>Participants</code>, <code>Flats</code>, <code>FixedMappings</code>, <code>Allocations</code>, <code>AuditLogs</code>, <code>AdminUsers</code>) or export the signed Audit Report.
+                  </p>
+                </div>
+                <div class="d-grid gap-2">
+                  <button type="button" id="exportMongoBackupBtn" class="btn btn-adm-navy">
+                    <i class="fa-solid fa-database me-2"></i>Download Full MongoDB Backup (.json)
+                  </button>
+                  <button type="button" id="exportFullAuditXlsxBtn" class="btn btn-adm-outline">
+                    <i class="fa-solid fa-shield-halved me-2"></i>Export Allocation Audit Report (.xlsx)
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="adm-card">
+            <h6 class="fw-bold mb-3">Recent Immutable Security &amp; Allocation Audit Logs</h6>
+            <div class="table-responsive adm-table-wrap" style="max-height: 320px; overflow-y: auto;">
+              <table class="table adm-table table-sm">
+                <thead>
+                  <tr>
+                    <th>Timestamp</th>
+                    <th>Action</th>
+                    <th>Actor</th>
+                    <th>Role</th>
+                    <th>Summary</th>
+                  </tr>
+                </thead>
+                <tbody id="settingsAuditLogsBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- =================================================================
+             MODULE 11: ADMIN USERS & ROLE PERMISSIONS
+             ================================================================= -->
+        <section id="tab-admins" class="adm-module-pane">
+          <div class="row g-4">
+            <div class="col-lg-5">
+              <div class="adm-card mb-4">
+                <h5 class="h6 fw-bold mb-3">Create Administrator / Operator (`SUPER_ADMIN`)</h5>
+                <form id="createAdminUserForm">
+                  <div class="mb-2">
+                    <label class="form-label small fw-bold mb-1">Full Name *</label>
+                    <input type="text" id="newAdmFullName" class="form-control form-control-sm" required />
+                  </div>
+                  <div class="row g-2 mb-2">
+                    <div class="col-6">
+                      <label class="form-label small fw-bold mb-1">Username *</label>
+                      <input type="text" id="newAdmUsername" class="form-control form-control-sm" required />
+                    </div>
+                    <div class="col-6">
+                      <label class="form-label small fw-bold mb-1">Role *</label>
+                      <select id="newAdmRole" class="form-select form-select-sm">
+                        <option value="LOTTERY_OPERATOR">LOTTERY_OPERATOR</option>
+                        <option value="AUDITOR">AUDITOR (Read-Only)</option>
+                        <option value="SUPER_ADMIN">SUPER_ADMIN</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label small fw-bold mb-1">Email *</label>
+                    <input type="email" id="newAdmEmail" class="form-control form-control-sm" required />
+                  </div>
+                  <button type="submit" class="btn btn-sm btn-adm-gold w-100">Add Committee Admin</button>
+                </form>
+              </div>
+            </div>
+
+            <div class="col-lg-7">
+              <div class="adm-card">
+                <h5 class="h6 fw-bold mb-3">Authorized Admin &amp; Committee Accounts</h5>
+                <div class="table-responsive adm-table-wrap">
+                  <table class="table adm-table">
+                    <thead>
+                      <tr>
+                        <th>Username</th>
+                        <th>Full Name</th>
+                        <th>Role</th>
+                        <th>Status</th>
+                        <th>Last Login</th>
+                        <th class="text-end">Manage</th>
+                      </tr>
+                    </thead>
+                    <tbody id="adminUsersTableBody"></tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: View Luxury Ticket -->
+  <div class="modal fade" id="admTicketPreviewModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content bg-transparent border-0">
+        <div class="text-end mb-2">
+          <button type="button" class="btn btn-sm btn-light rounded-pill px-3" data-bs-dismiss="modal">Close</button>
+        </div>
+        <div id="admTicketModalMount"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Add / Edit Single Participant -->
+  <div class="modal fade" id="admParticipantModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title h6 fw-bold" id="admPartModalTitle">Add Participant</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <form id="admParticipantForm">
+          <div class="modal-body">
+            <input type="hidden" id="editPartMongoId" />
+            <div class="row g-2 mb-2">
+              <div class="col-5">
+                <label class="form-label small fw-bold">Participant ID *</label>
+                <input type="text" id="formPartId" class="form-control form-control-sm" placeholder="RP-P0001" required />
+              </div>
+              <div class="col-7">
+                <label class="form-label small fw-bold">Full Name *</label>
+                <input type="text" id="formPartName" class="form-control form-control-sm" placeholder="Rahul Sharma" required />
+              </div>
+            </div>
+            <div class="row g-2 mb-2">
+              <div class="col-6">
+                <label class="form-label small fw-bold">Registration No</label>
+                <input type="text" id="formPartReg" class="form-control form-control-sm" />
+              </div>
+              <div class="col-6">
+                <label class="form-label small fw-bold">Mobile Number</label>
+                <input type="text" id="formPartMobile" class="form-control form-control-sm" />
+              </div>
+            </div>
+            <div class="row g-2">
+              <div class="col-5">
+                <label class="form-label small fw-bold">Wing / Building</label>
+                <input type="text" id="formPartWing" class="form-control form-control-sm" />
+              </div>
+              <div class="col-7">
+                <label class="form-label small fw-bold">Notes</label>
+                <input type="text" id="formPartNotes" class="form-control form-control-sm" />
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-sm btn-adm-outline" data-bs-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-sm btn-adm-gold">Save Participant</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Add / Edit Single Flat -->
+  <div class="modal fade" id="admFlatModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title h6 fw-bold" id="admFlatModalTitle">Add Flat Number</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <form id="admFlatForm">
+          <div class="modal-body">
+            <input type="hidden" id="editFlatMongoId" />
+            <div class="row g-2 mb-2">
+              <div class="col-6">
+                <label class="form-label small fw-bold">Flat Number *</label>
+                <input type="text" id="formFlatNo" class="form-control form-control-sm" placeholder="101 or A-101" required />
+              </div>
+              <div class="col-6">
+                <label class="form-label small fw-bold">Wing</label>
+                <input type="text" id="formFlatWing" class="form-control form-control-sm" placeholder="Wing A" />
+              </div>
+            </div>
+            <div class="row g-2">
+              <div class="col-4">
+                <label class="form-label small fw-bold">Floor</label>
+                <input type="text" id="formFlatFloor" class="form-control form-control-sm" placeholder="1" />
+              </div>
+              <div class="col-8">
+                <label class="form-label small fw-bold">Building / Tower</label>
+                <input type="text" id="formFlatBuilding" class="form-control form-control-sm" placeholder="Royal Palms Tower" />
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-sm btn-adm-outline" data-bs-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-sm btn-adm-gold">Save Flat</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+  <script src="js/show-audio.js"></script>
+  <script src="js/lottery-core.js"></script>
+  <script src="js/admin-portal.js"></script>
+</body>
+</html>

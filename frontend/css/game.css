@@ -1,0 +1,432 @@
+/* =========================================================================
+   ROYAL PALMS SOCIETY LUCKY DRAW - LUXURY 3-REEL GAME STAGE (game.css)
+   Palette: Ivory White, Champagne Gold, Warm Beige, Soft Cream, Deep Navy
+   ========================================================================= */
+
+.game-arena-section {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  padding: 1.85rem 0 2.6rem;
+}
+
+.slot-cabinet-stage {
+  max-width: 890px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* Luxury Ivory Game Console */
+.slot-cabinet {
+  background: linear-gradient(160deg, #fffefa 0%, #faf6ed 100%);
+  border: 1px solid var(--border-beige);
+  border-radius: 26px;
+  padding: 2rem 2.25rem 2.2rem;
+  box-shadow: 0 24px 58px rgba(20, 33, 61, 0.07);
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.slot-cabinet.cabinet-winning {
+  border-color: var(--champagne-gold);
+  box-shadow: 0 26px 64px rgba(168, 126, 43, 0.16);
+}
+
+/* Top Game Header & Instructions */
+.game-stage-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  flex-wrap: wrap;
+  padding-bottom: 1.2rem;
+  margin-bottom: 1.25rem;
+  border-bottom: 1px solid var(--border-ivory);
+}
+
+.game-society-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--champagne-deep);
+  margin-bottom: 0.25rem;
+}
+
+.game-stage-title {
+  font-family: var(--font-serif);
+  font-size: 1.65rem;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  color: var(--navy-deep);
+  margin: 0 0 0.22rem;
+}
+
+.game-instruction-text {
+  font-size: 0.96rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+/* Refined Draw Info Strip */
+.game-meta-strip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 1.2rem;
+}
+
+.game-stat-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+}
+
+.game-stat-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 0.9rem;
+  border-radius: 999px;
+  background: var(--bg-soft-cream);
+  border: 1px solid var(--border-beige);
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+
+.game-stat-pill strong {
+  color: var(--navy-deep);
+  font-weight: 700;
+}
+
+.game-stat-pill.pill-gold {
+  background: var(--champagne-soft-bg);
+  border-color: var(--champagne-border);
+  color: var(--champagne-deep);
+}
+
+.game-stat-pill.pill-gold strong {
+  color: var(--champagne-deep);
+}
+
+/* =========================================================================
+   LARGE, CLEARLY VISIBLE THREE SPINNING REELS (MAIN FOCUS)
+   ========================================================================= */
+.reel-bezel-frame {
+  position: relative;
+  background: linear-gradient(180deg, #f3ecdf 0%, #ebe1cf 100%);
+  border: 1.5px solid #dccba9;
+  border-radius: 22px;
+  padding: 1.35rem;
+  box-shadow:
+    inset 0 2px 10px rgba(20, 33, 61, 0.05),
+    0 6px 20px rgba(20, 33, 61, 0.035);
+}
+
+/* Champagne-Gold Center Match Line */
+.matchline-indicator {
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 2px;
+  background: rgba(184, 140, 52, 0.34);
+  z-index: 5;
+  pointer-events: none;
+}
+
+.matchline-indicator::before,
+.matchline-indicator::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--champagne-gold);
+  border: 1.5px solid var(--bg-ivory);
+  box-shadow: 0 1px 4px rgba(20, 33, 61, 0.18);
+}
+
+.matchline-indicator::before {
+  left: -4px;
+}
+
+.matchline-indicator::after {
+  right: -4px;
+}
+
+.reels-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.1rem;
+  position: relative;
+  z-index: 2;
+}
+
+/* Individual Porcelain-Ivory Reel Drum */
+.reel-drum {
+  position: relative;
+  height: 256px;
+  background: #ffffff;
+  border-radius: 18px;
+  border: 1.5px solid #e2d7c3;
+  overflow: hidden;
+  box-shadow:
+    0 6px 18px rgba(20, 33, 61, 0.05),
+    inset 0 2px 8px rgba(20, 33, 61, 0.03);
+  transition: border-color 0.22s ease, background-color 0.22s ease, box-shadow 0.22s ease;
+}
+
+/* Realistic Cylindrical Top & Bottom Cream Shading */
+.reel-drum::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(244, 238, 226, 0.9) 0%,
+    rgba(255, 255, 255, 0) 21%,
+    rgba(255, 255, 255, 0) 79%,
+    rgba(244, 238, 226, 0.9) 100%
+  );
+  pointer-events: none;
+  z-index: 4;
+}
+
+.reel-drum.reel-suspense {
+  border-color: var(--champagne-gold);
+  box-shadow: 0 0 0 3px rgba(200, 159, 73, 0.22);
+}
+
+.reel-drum.reel-locked-match {
+  border-color: var(--champagne-deep);
+  background: #fffdf7;
+  box-shadow: 0 0 0 3px rgba(200, 159, 73, 0.28);
+}
+
+.reel-strip {
+  position: relative;
+  width: 100%;
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+}
+
+.reel-strip.spinning-blur {
+  filter: blur(0.9px);
+}
+
+/* Each Symbol Slot inside the Strip */
+.reel-cell {
+  height: 256px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  padding: 0.85rem;
+}
+
+.symbol-emblem {
+  width: 116px;
+  height: 116px;
+  border-radius: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3.7rem;
+  background: var(--bg-soft-cream);
+  border: 1px solid var(--border-beige);
+  box-shadow: 0 6px 16px rgba(20, 33, 61, 0.05);
+  transition: transform 0.25s ease, background-color 0.25s ease;
+}
+
+.symbol-emblem.sym-STAR,
+.symbol-emblem.sym-TROPHY,
+.symbol-emblem.sym-CROWN,
+.symbol-emblem.sym-MEDAL {
+  background: #fcf7eb;
+  border-color: #e5cf9c;
+}
+
+.symbol-emblem.sym-GIFT,
+.symbol-emblem.sym-DIAMOND,
+.symbol-emblem.sym-BELL,
+.symbol-emblem.sym-CLOVER {
+  background: #f7f3eb;
+  border-color: #dfd4c0;
+}
+
+.symbol-caption {
+  margin-top: 0.62rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  color: var(--navy-deep);
+}
+
+.cabinet-winning .reel-cell-active .symbol-emblem {
+  animation: gentleWinScale 0.65s ease-in-out infinite alternate;
+}
+
+@keyframes gentleWinScale {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.07);
+  }
+}
+
+/* =========================================================================
+   CLEAR GAME STATUS & RESULT BAR
+   ========================================================================= */
+.slot-status-banner {
+  margin: 1.25rem 0 1.4rem;
+  padding: 0.9rem 1.25rem;
+  border-radius: 15px;
+  text-align: center;
+  font-weight: 600;
+  font-size: 0.96rem;
+  background: var(--bg-soft-cream);
+  border: 1px solid var(--border-beige);
+  color: var(--navy-deep);
+  min-height: 54px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  transition: all 0.2s ease;
+}
+
+.slot-status-banner.status-try-again {
+  background: #f5f0e6;
+  border-color: var(--border-beige);
+  color: var(--text-secondary);
+}
+
+.slot-status-banner.status-jackpot {
+  background: var(--champagne-soft-bg);
+  border-color: var(--champagne-gold);
+  color: var(--champagne-deep);
+  font-weight: 700;
+}
+
+/* =========================================================================
+   PROMINENT CHAMPAGNE-GOLD "SPIN" BUTTON
+   ========================================================================= */
+.cabinet-control-deck {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.78rem;
+}
+
+.btn-spin-now {
+  min-width: 280px;
+  padding: 1.05rem 3.1rem;
+  border-radius: 16px;
+  border: 1px solid #ad812b;
+  background: linear-gradient(135deg, #ebd298 0%, #cfa652 52%, #b88c35 100%);
+  color: var(--navy-deep);
+  font-family: var(--font-sans);
+  font-size: 1.22rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  box-shadow:
+    0 12px 28px rgba(173, 129, 43, 0.26),
+    inset 0 1px 0 rgba(255, 255, 255, 0.55);
+  cursor: pointer;
+  transition: transform 0.16s ease, box-shadow 0.16s ease, background 0.16s ease, opacity 0.16s ease;
+}
+
+.btn-spin-now:hover:not(:disabled) {
+  background: linear-gradient(135deg, #f0daaa 0%, #d6af5d 52%, #c0943c 100%);
+  transform: translateY(-2px);
+  box-shadow:
+    0 16px 34px rgba(173, 129, 43, 0.34),
+    inset 0 1px 0 rgba(255, 255, 255, 0.65);
+}
+
+.btn-spin-now:active:not(:disabled),
+.btn-spin-now.pressed {
+  transform: translateY(1px);
+  box-shadow: 0 5px 14px rgba(173, 129, 43, 0.2);
+}
+
+.btn-spin-now:disabled {
+  cursor: not-allowed;
+  opacity: 0.65;
+}
+
+/* =========================================================================
+   LUXURY WINNER ANNOUNCEMENT MODAL
+   ========================================================================= */
+.winner-jackpot-modal .modal-content {
+  background: var(--bg-ivory);
+  border: 1.5px solid var(--champagne-gold);
+  border-radius: 26px;
+  color: var(--navy-deep);
+  box-shadow: 0 30px 72px rgba(20, 33, 61, 0.18);
+}
+
+.jackpot-crown-burst {
+  width: 78px;
+  height: 78px;
+  margin: 0 auto 0.8rem;
+  border-radius: 50%;
+  background: var(--champagne-soft-bg);
+  border: 1.5px solid var(--champagne-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.15rem;
+  color: var(--champagne-deep);
+}
+
+.winner-spotlight-card {
+  background: var(--bg-soft-cream);
+  border: 1px solid var(--border-beige);
+  border-radius: 16px;
+  padding: 1.25rem 1.45rem;
+  margin: 1rem 0;
+}
+
+.winner-field-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.62rem 0;
+  border-bottom: 1px solid rgba(20, 33, 61, 0.06);
+}
+
+.winner-field-row:last-child {
+  border-bottom: none;
+}
+
+/* Full-Screen TV / Projector Mode */
+body.tv-fullscreen-active .arcade-navbar,
+body.tv-fullscreen-active .spw-navbar,
+body.tv-fullscreen-active .arcade-footer {
+  display: none !important;
+}
+
+body.tv-fullscreen-active .game-arena-section {
+  min-height: 100vh;
+  padding: 1.5rem;
+}
+
+body.tv-fullscreen-active .slot-cabinet-stage {
+  max-width: 1040px;
+}

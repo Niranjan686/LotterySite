@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Royal Palms — Flat Allocation &amp; Live Lucky Draw Portal</title>
+  <link rel="icon" type="image/svg+xml" href="assets/images/logo.svg" />
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/home.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
+</head>
+<body>
+  <div class="app-wrapper">
+    <!-- Luxury Portal Header -->
+    <nav class="navbar navbar-expand-lg arcade-navbar">
+      <div class="container-xxl">
+        <a class="brand-lockup" href="index.html">
+          <img src="assets/images/logo.svg" alt="Royal Palms" class="brand-logo-img" id="portalNavLogo" />
+          <div>
+            <div class="brand-title">Royal Palms</div>
+            <span class="brand-tagline" id="portalNavSociety">Royal Palms Co-operative Housing Society</span>
+          </div>
+        </a>
+
+        <button class="navbar-toggler border-secondary-subtle text-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-label="Toggle navigation">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+
+        <div class="collapse navbar-collapse" id="mainNav">
+          <ul class="navbar-nav ms-auto arcade-nav-links">
+            <li class="nav-item"><a class="nav-link active" href="index.html">Portal Home</a></li>
+            <li class="nav-item">
+              <a class="nav-link nav-game-cta" href="live-lottery.html">
+                <i class="fa-solid fa-tv fa-xs"></i>
+                <span>Live Lottery Show</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="admin.html">
+                <i class="fa-solid fa-shield-halved fa-xs"></i>
+                <span>Admin Portal</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main Portal Launchpad & Ticket Verification -->
+    <main class="landing-main">
+      <div class="container-xxl">
+        <div class="landing-hero-card mb-4">
+          <div class="row g-4 g-lg-5 align-items-center">
+            <!-- Left Column: Official Portal Launchpad -->
+            <div class="col-lg-6">
+              <p class="landing-society-eyebrow">
+                <span id="heroSocietyName">Royal Palms Co-operative Housing Society</span>
+              </p>
+
+              <h1 class="landing-main-heading" id="heroMainHeading">
+                Grand Flat Allocation &amp; Live Lucky Draw Portal
+              </h1>
+
+              <p class="landing-subtitle">
+                Transparent MongoDB-verified flat allocation system with fixed mapping protection, cryptographic random draw, dramatic live game-show reveal, and official QR tickets.
+              </p>
+
+              <!-- Two Dedicated Experiences: Live Show + Admin Portal -->
+              <div class="d-flex flex-wrap gap-3 mb-3">
+                <a href="live-lottery.html" class="btn-play-win-primary" id="heroLaunchLiveBtn">
+                  <span class="play-icon-badge" aria-hidden="true">
+                    <i class="fa-solid fa-play"></i>
+                  </span>
+                  <span>LIVE LOTTERY SHOW</span>
+                </a>
+
+                <a href="admin.html" class="btn btn-sky d-inline-flex align-items-center px-4 py-3 rounded-4 fw-bold">
+                  <i class="fa-solid fa-gauge-high me-2"></i>
+                  <span>ADMIN PORTAL</span>
+                </a>
+              </div>
+
+              <!-- Live Real-Time MongoDB Counters -->
+              <div class="row g-2 pt-3 border-top mt-3">
+                <div class="col-3">
+                  <div class="p-2 rounded-3 text-center" style="background: var(--bg-soft-cream); border: 1px solid var(--border-beige);">
+                    <div class="small text-muted-light" style="font-size: 0.7rem;">Participants</div>
+                    <div class="fw-bold fs-5" id="homeStatParticipants">0</div>
+                  </div>
+                </div>
+                <div class="col-3">
+                  <div class="p-2 rounded-3 text-center" style="background: var(--bg-soft-cream); border: 1px solid var(--border-beige);">
+                    <div class="small text-muted-light" style="font-size: 0.7rem;">Total Flats</div>
+                    <div class="fw-bold fs-5" id="homeStatFlats">0</div>
+                  </div>
+                </div>
+                <div class="col-3">
+                  <div class="p-2 rounded-3 text-center" style="background: var(--champagne-soft-bg); border: 1px solid var(--champagne-border);">
+                    <div class="small text-gold" style="font-size: 0.7rem;">Allocated</div>
+                    <div class="fw-bold fs-5 text-gold" id="homeStatAllocated">0</div>
+                  </div>
+                </div>
+                <div class="col-3">
+                  <div class="p-2 rounded-3 text-center" style="background: var(--bg-soft-cream); border: 1px solid var(--border-beige);">
+                    <div class="small text-muted-light" style="font-size: 0.7rem;">Remaining</div>
+                    <div class="fw-bold fs-5" id="homeStatRemaining">0</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right Column: Cinematic Building Photo + Official Ticket Verifier -->
+            <div class="col-lg-6">
+              <div class="hero-visual-stack">
+                <div class="landing-building-wrap">
+                  <img
+                    id="heroSocietyBuildingImg"
+                    src="assets/images/society-building.jpg"
+                    alt="Royal Palms Residential Society"
+                    class="landing-building-photo"
+                  />
+                </div>
+
+                <!-- Instant Official Ticket Verification Strip -->
+                <div class="glass-panel glass-panel-gold p-3">
+                  <form id="homeVerifyTicketForm" class="d-flex align-items-center gap-2 flex-wrap flex-sm-nowrap">
+                    <div class="flex-grow-1">
+                      <label for="verifyTicketInput" class="arcade-label mb-1">Verify Official Allocation Ticket</label>
+                      <input
+                        type="text"
+                        id="verifyTicketInput"
+                        class="form-control arcade-input py-2"
+                        placeholder="Enter Allocation ID (e.g. RP-000001)"
+                        required
+                      />
+                    </div>
+                    <div class="align-self-end">
+                      <button type="submit" class="btn btn-gold py-2 px-3 text-nowrap">
+                        <i class="fa-solid fa-qrcode me-1"></i>Verify Ticket
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Ticket Verification Result Mount -->
+        <div id="homeVerifiedTicketMount" class="mb-3"></div>
+      </div>
+    </main>
+
+    <footer class="arcade-footer text-center">
+      <div class="container-xxl">
+        <span id="footerSocietyLabel">Royal Palms Co-operative Housing Society</span> • Official MongoDB Flat Allocation &amp; Live Lottery Portal
+      </div>
+    </footer>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+  <script src="js/show-audio.js"></script>
+  <script src="js/lottery-core.js"></script>
+  <script src="js/home.js"></script>
+</body>
+</html>
